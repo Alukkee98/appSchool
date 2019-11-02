@@ -66,9 +66,7 @@
                       </div>
                     </div>
  
-					<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login">
-                  
-					
+					<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login">					
                     <!--
                     <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
@@ -83,7 +81,7 @@
                     <a class="small" href="forgot-password.html">Forgot Password?</a>
                   </div>
                   <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
+                    <a class="small" href="register.php">Create an Account!</a>
                   </div>
                 </div>
               </div>

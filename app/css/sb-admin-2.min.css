@@ -10909,7 +10909,7 @@ background-size:cover
  } 
  
  .bg-register-image{ 
-background:url(https://source.unsplash.com/Mv9hjnEUHR4/600x800); 
+background:url(https://images.pexels.com/photos/159825/color-pencil-drawing-coloring-colored-pencils-159825.jpeg?cs=srgb&dl=art-artistic-blue-159825.jpg&fm=jpg); 
 background-position:center; 
 background-size:cover
  } 
@@ -11007,6 +11007,13 @@ position:relative;
 line-height:1; 
 width:12.5rem
  } 
+ 
+ .message{
+  padding: 20px 0;
+  width: 100%;
+  text-align: center;
+  background-color:#ffffff;
+ }
  
  @-webkit-keyframes noise-anim{ 
 0%{ 
