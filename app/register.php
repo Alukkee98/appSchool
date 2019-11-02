@@ -8,20 +8,22 @@ $message = '';
   if (!empty($_POST['username']) 
 		&& !empty($_POST['password']) 
 		&& !empty($_POST['email']) 
+		&& !empty($_POST['name']) 
+		&& !empty($_POST['lastName']) 
 		) {
     //$sql = "INSERT INTO login_user (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :name, :lastName)";
-	$sql = "INSERT INTO login_user (username, password, email) VALUES (:userame, :password, :email)";
+	$sql = "INSERT INTO login_user (username, password, email, name, lastname) VALUES (:username, :password, :email, :name, :lastName)";
 
   
 	$stmt = $conn->prepare($sql);
 	
-	 $stmt->bindParam(':username', $_POST['username']);
+	$stmt->bindParam(':username', $_POST['username']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $stmt->bindParam(':password', $password);
 	$stmt->bindParam(':email', $_POST['email']);
-	/*$stmt->bindParam(':groupUserId', $_POST['groupUserId']);
+	//$stmt->bindParam(':groupUserId', $_POST['groupUserId']);
 	$stmt->bindParam(':name', $_POST['name']);
-	$stmt->bindParam(':lastName', $_POST['lastName']);*/
+	$stmt->bindParam(':lastName', $_POST['lastName']);
 	
     if ($stmt->execute()) {
       $message = 'Successfully created new user';
