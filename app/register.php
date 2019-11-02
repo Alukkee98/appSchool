@@ -8,8 +8,6 @@ $message = '';
   if (!empty($_POST['username']) 
 		&& !empty($_POST['password']) 
 		&& !empty($_POST['email']) 
-		&& !empty($_POST['name']) 
-		&& !empty($_POST['lastName']) 
 		) {
     //$sql = "INSERT INTO login_user (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :name, :lastName)";
 	$sql = "INSERT INTO login_user (username, password, email, name, lastname) VALUES (:username, :password, :email, :name, :lastName)";
