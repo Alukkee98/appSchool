@@ -2,36 +2,12 @@
 
 <?php
   
-  $host = "localhost";
-  $user = "root";
-  $password = "";
-  $db = "app";
-
-  $mysqli = new mysqli($host, $user, $password);
- 
-
-  if(isset($_POST['username'])){
-
-    $uname = $_POST['username'];
-    $password = $_POST['password'];
-
-    
-
-    $sql = $mysqli->query ("SELECT * FROM login_user WHERE USERNAME = '".$uname." ' AND PASSWORD = ' ".$password." ' LIMIT 1 " ) ;
-
-    $result = mysql_query($sql);
-
-
-    if( mysql_num_rows( $result ) == 1){
-      echo " You are IN";
-      exit ();
-    }else{
-      echo " Your credentials are incorrects";
-    }
-
+ session_start();
+  if (isset($_SESSION['id_user'])) {
+    header('Location: /login');
   }
-
-   
+  require 'database.php';
+    
 
 ?>
 
@@ -76,9 +52,9 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Apps Login</h1>
                   </div>
-                  <form class="user" method="POST" action="#">
+                  <form class="user" method="POST" action="login.php">
                     <div class="form-group">
-                      <input type="text" name="uname" class="form-control form-control-user" id="uname" aria-describedby="emailHelp" placeholder="Enter username...">
+                      <input type="text" name="username" class="form-control form-control-user" id="username" aria-describedby="emailHelp" placeholder="Enter username...">
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">
@@ -89,9 +65,10 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a href="index.html" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+ 
+					<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login">
+                  
+					
                     <!--
                     <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
