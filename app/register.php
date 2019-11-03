@@ -3,31 +3,30 @@
 
   require 'database.php';
 
+  $message  = '';
+  $username = '';
+  $password ='';
+  $email = ''; 
 
-$message = '';
-  if (!empty($_POST['username']) 
-		&& !empty($_POST['password']) 
-		&& !empty($_POST['email']) 
-		) {
-    //$sql = "INSERT INTO login_user (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :name, :lastName)";
-	$sql = "INSERT INTO login_user (username, password, email, name, lastname) VALUES (:username, :password, :email, :name, :lastName)";
-
-  
+  if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email']) ) {
+	    
+	$sql = "INSERT INTO login_user (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :firstName, :lastName)";
 	$stmt = $conn->prepare($sql);
 	
 	$stmt->bindParam(':username', $_POST['username']);
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $stmt->bindParam(':password', $password);
 	$stmt->bindParam(':email', $_POST['email']);
-	//$stmt->bindParam(':groupUserId', $_POST['groupUserId']);
-	$stmt->bindParam(':name', $_POST['name']);
+	$stmt->bindParam(':groupUserId', $_POST['groupUserId']);
+	$stmt->bindParam(':firstName', $_POST['firstName']);
 	$stmt->bindParam(':lastName', $_POST['lastName']);
-	
-    if ($stmt->execute()) {
-      $message = 'Successfully created new user';
-    } else {
-      $message = 'Sorry there must have been an issue creating your account';
-    }
+
+	if ($stmt->execute()) {
+		$message = 'Successfully created new user';
+	} else {
+		$message = 'Sorry there must have been an issue creating your account';
+	}	
+    
   }
   
 ?>
@@ -62,7 +61,6 @@ $message = '';
     <?php endif;	?>
 
   <div class="container">
-
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
@@ -73,42 +71,43 @@ $message = '';
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
               </div>
-              <form class="user" action="register.php" method="POST">
+              <form class="user" action="register.php" method="POST" autocomplete="off">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="firstName" name="firstName" placeholder="First Name">
+                    <input type="text" class="form-control form-control-user" id="firstName" name="firstName" placeholder="First Name" >
                   </div>
                   <div class="col-sm-6">
                     <input type="text" class="form-control form-control-user" id="lastName" name="lastName" placeholder="Last Name">
                   </div>
                 </div>
-					 <div class="form-group">
-                  <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Username">
+				<div class="form-group">
+                  <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="*Username" required="true">
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="Email Address">
+                  <input type="email" class="form-control form-control-user" id="email" name="email" placeholder="*Email Address" required="true">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password">
+                    <input type="password" class="form-control form-control-user" id="password" name="password" placeholder="Password" required="true">
                   </div>
                   <div class="col-sm-6">
-                    <input type="password" class="form-control form-control-user" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password">
+                    <input type="password" class="form-control form-control-user" id="repeatPassword" name="repeatPassword" placeholder="Repeat Password" required="true">
                   </div>
+				</div>
+				<div class="form-group row">
 				  <div class="col-sm-6">
-						<select class="form-control mdb-select md-form " name="groupUserId">
-						  <option value="" disabled selected>Choose your permission</option>
+						<select class="form-control mdb-select md-form" name="groupUserId" required="true">
+						  <option value="" disabled selected>*Choose your permission</option>
 						  <option value="1">ADMINISTRATOR</option>
 						  <option value="2">COMMON</option>
 						</select>
 				  </div>
 				</div>
+				
                <!-- <a href="login.php" class="btn btn-primary btn-user btn-block">
                   Register Account
                 </a>-->
 				<input type="submit" class="btn btn-primary btn-user btn-block" id="register" value="Register Account">					
-
-                <hr>
                 <!--<a href="index.html" class="btn btn-google btn-user btn-block">
                   <i class="fab fa-google fa-fw"></i> Register with Google
                 </a>
@@ -128,7 +127,6 @@ $message = '';
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- Bootstrap core JavaScript-->

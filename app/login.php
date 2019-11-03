@@ -2,11 +2,29 @@
 
 <?php
   
- session_start();
-  if (isset($_SESSION['id_user'])) {
-    header('Location: /login');
+  session_start();
+ 
+ if (isset($_SESSION['id_user'])) {
+    header('Location: /app/login.php');
   }
+  
   require 'database.php';
+  
+  if (!empty($_POST['email']) && !empty($_POST['password'])) {
+    $records = $conn->prepare('SELECT id_user, email, password FROM login_user WHERE email = :email');
+    $records->bindParam(':email', $_POST['email']);
+    $records->execute();
+    $results = $records->fetch(PDO::FETCH_ASSOC);
+	
+	$message = '';
+   
+	if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
+      $_SESSION['id_user'] = $results['id_user'];
+      header("Location: /app/index.php");
+    } else {
+      $message = 'Sorry, those credentials do not match';
+    }
+  }
     
 
 ?>
@@ -35,6 +53,10 @@
 
 <body class="bg-gradient-primary">
 
+ <?php if(!empty($message)): ?>
+      <div class="message"> <p> <?= $message ?></p> </div>
+    <?php endif;	?>
+	
   <div class="container">
 
     <!-- Outer Row -->
@@ -54,7 +76,7 @@
                   </div>
                   <form class="user" method="POST" action="login.php">
                     <div class="form-group">
-                      <input type="text" name="username" class="form-control form-control-user" id="username" aria-describedby="emailHelp" placeholder="Enter username...">
+                      <input type="text" name="email" class="form-control form-control-user" id="email" aria-describedby="emailHelp" placeholder="Enter email...">
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">

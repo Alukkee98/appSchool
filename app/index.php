@@ -1,3 +1,22 @@
+<?php
+	
+  session_start();
+  require 'database.php';
+  if (isset($_SESSION['id_user'])) {
+    $records = $conn->prepare('SELECT id_user, email, password FROM login_user WHERE id = :id');
+    $records->bindParam(':user_id', $_SESSION['user_id']);
+    $records->execute();
+    $results = $records->fetch(PDO::FETCH_ASSOC);
+    $user = null;
+    if (count($results) > 0) {
+      $user = $results;
+    }
+  }else{
+	 header('Location: /app/login.php');
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +43,10 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-
+	<?php if(!empty($message)): ?>
+      <div class="message"> <p> <?= $message ?></p> </div>
+    <?php endif;	?>
+	
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
