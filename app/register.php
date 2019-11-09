@@ -27,15 +27,13 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
   $records->execute();
 
 
-  if(COUNT($records) 0 ){
-    $message = 'The email ' . $_POST['email'] . ' already exists.' . 'result' . $result . $records;
-  }else{
+  
   	if ($stmt->execute()) {
   		$message = 'Successfully created new user' ;
   	} else {
   		$message = 'Sorry there must have been an issue creating your account';
   	}	
-  }
+  
 }
   
 ?>
@@ -66,7 +64,7 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 <body class="bg-gradient-primary">
 	 
     <?php if(!empty($message)): ?>
-      <div class="message"> <p> <?= $message ?> <?= $records ?></p> </div>
+      <div class="message"> <p> <?= $message ?></p> </div>
     <?php endif;	?>
 
   <div class="container">

@@ -3,14 +3,11 @@
   session_start();
   require 'database.php';
   if (isset($_SESSION['id_user'])) {
-    $records = $conn->prepare('SELECT id_user, email, password FROM login_user WHERE id = :id');
-    $records->bindParam(':user_id', $_SESSION['user_id']);
+    $records = $conn->prepare('SELECT id_user, email, password FROM login_user WHERE id_user = :id_user');
+    $records->bindParam(':id_user', $_SESSION['id_user']);
     $records->execute();
     $results = $records->fetch(PDO::FETCH_ASSOC);
     $user = null;
-    if (count($results) > 0) {
-      $user = $results;
-    }
   }else{
 	 header('Location: /app/login.php');
   }

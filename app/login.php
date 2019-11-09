@@ -18,7 +18,7 @@
 	
 	$message = '';
    
-	if (count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
+	if (count($results) > 0) {
       $_SESSION['id_user'] = $results['id_user'];
       header("Location: /app/index.php");
     } else {
