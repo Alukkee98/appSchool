@@ -102,32 +102,17 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
                   </div>
 				</div>
 				<div class="form-group row">
-				  <div class="col-sm-6">
-						<select class="form-control mdb-select md-form" name="groupUserId" required="true">
-						  <option value="" disabled selected>*Choose your permission</option>
-						  <option value="1">ADMINISTRATOR</option>
-						  <option value="2">COMMON</option>
-						</select>
-						
+				  <div class="col-sm-6">						
 						<select class="form-control mdb-select md-form" name="groupUserId">
 							<option value="" disabled selected>*Choose your permission</option>
 						<?php
-						/* Realizamos la consulta para extraer los datos
-													
-								if ($valores != )) {
-									$message = 'Successfully created new user' ;
-									} else {
-									$message = 'Sorry there must have been an issue creating your account';
-								}
-								/*  while ($valores = mysqli_fetch_array($query)) {
-								// En esta sección estamos llenando el select con datos extraidos de una base de datos.
-								   echo '<option value="'.$valores[id].'">'.$valores[descripcion].'</option>';
-								  }*/
-								  
+						// Realizamos la consulta para extraer los datos
 								$sql = "SELECT * FROM group_user";
-								$result = mysqli_query($link, $sql);
+								$result = $link->query($sql);
 								if($result->num_rows>0){
-										echo '<option value="'.$valores[id].'">'.$valores[descripcion].'</option>';
+									while($row = $result->fetch_assoc()) {
+										echo '<option value="'.$row[id].'">'.$row[descripcion].'</option>';
+									}
 								}
 								?>
 						</select>
