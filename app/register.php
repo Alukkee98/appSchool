@@ -9,7 +9,7 @@
   $email = ''; 
 
 if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email']) ) {
-	    
+	
 	$sql = "INSERT INTO user (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :firstName, :lastName)";
 	$stmt = $conn->prepare($sql);
 	
@@ -20,20 +20,27 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	$stmt->bindParam(':groupUserId', $_POST['groupUserId']);
 	$stmt->bindParam(':firstName', $_POST['firstName']);
 	$stmt->bindParam(':lastName', $_POST['lastName']);
-
-	$sqlVerify = "'SELECT COUNT(*) FROM user WHERE email = :email' ";
+ /*
+	$sqlVerify = "SELECT COUNT(*) FROM user WHERE email = :email";
 	$records = $conn->prepare($sqlVerify);
 	$records->bindParam(':email', $_POST['email']);
-	$records->execute();
+	$result = $connexion->query($sqlVerify);
+	/*
+	$sql = "SELECT COUNT(*) FROM user WHERE email = :email";
+	$result = $connexion->query($sql);
+	if($result->num_rows>0){
+		while($row = $result->fetch_assoc()) {
+		echo '<option value="'.$row[id].'">'.$row[descripcion].'</option>';
+	}
+	}
+	*/					
+		if ($stmt->execute()) {
+			$message = 'Successfully created new user' ;
+		} else {
+			$message = 'Sorry there must have been an issue creating your account';
+		}
 
-
-  
-  	if ($stmt->execute()) {
-  		$message = 'Successfully created new user' ;
-  	} else {
-  		$message = 'Sorry there must have been an issue creating your account';
-  	}	
-  
+ $conn = null;
 }
   
 ?>
@@ -106,14 +113,16 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 						<select class="form-control mdb-select md-form" name="groupUserId">
 							<option value="" disabled selected>*Choose your permission</option>
 						<?php
-						// Realizamos la consulta para extraer los datos
+								// Realizamos la consulta para extraer los datos
 								$sql = "SELECT * FROM group_user";
-								$result = $link->query($sql);
+								$result = $connexion->query($sql);
 								if($result->num_rows>0){
 									while($row = $result->fetch_assoc()) {
 										echo '<option value="'.$row[id].'">'.$row[descripcion].'</option>';
 									}
 								}
+								
+								$connexion->close();
 								?>
 						</select>
 				  </div>

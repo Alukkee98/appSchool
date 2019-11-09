@@ -12,8 +12,10 @@ try {
   die('Connection Failed: ' . $e->getMessage());
 }
 
-$link = mysqli_connect($server, $username, $password, $database);
-if (!$link) {
+$connexion = mysqli_connect($server, $username, $password, $database);
+
+if (!$connexion) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
 ?>
