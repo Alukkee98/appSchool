@@ -9,7 +9,7 @@
   $email = ''; 
 
 if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email']) ) {
-	
+	try{
 	$sql = "INSERT INTO user (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :firstName, :lastName)";
 	$stmt = $conn->prepare($sql);
 	
@@ -34,12 +34,14 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	}
 	}
 	*/					
-		if ($stmt->execute()) {
-			$message = 'Successfully created new user' ;
-		} else {
-			$message = 'Sorry there must have been an issue creating your account';
-		}
-
+	if ($stmt->execute()) {
+		$message = 'Successfully created new user' ;
+		
+	}
+	}
+	catch(PDOException $e) {
+		$message = 'Sorry there must have been an issue creating your account';
+	}
  $conn = null;
 }
   
