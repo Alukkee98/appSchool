@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 
 <?php
-  
-  session_start();
+ session_start(); // Starting Session
+ $message='';
  
- if (isset($_SESSION['id_user'])) {
-    header('Location: /app/login.php');
-  }
-  
+ 
   require 'database.php';
   
   if (!empty($_POST['email']) && !empty($_POST['password'])) {
-    $records = $conn->prepare('SELECT id_user, email, password FROM login_user WHERE email = :email');
+    /*
+	$records = $conn->prepare('SELECT id_user, email, password FROM user WHERE email = :email');
     $records->bindParam(':email', $_POST['email']);
     $records->execute();
     $results = $records->fetch(PDO::FETCH_ASSOC);
 	
 	$message = '';
    
-	if (count($results) > 0) {
+	if($results->num_rows>0){
+	  $message = 'NUMERO DE RESULTADOS';
       $_SESSION['id_user'] = $results['id_user'];
-      header("Location: /app/index.php");
+      //header("Location: /app/index.php");
     } else {
       $message = 'Sorry, those credentials do not match';
     }
+	*/
+	 Realizamos la consulta para extraer los datos
+	$sql = "SELECT * FROM user WHERE email = '$_POST['email'])'";
+	$result = $connexion->query($sql);
+	if($result->num_rows>0){
+		$_SESSION["id"] = $row['id'];
+		$_SESSION["name"] = $row['name'];
+  }else{
+	 $message = 'Sorry, those credentials do not match';
   }
-    
+  
+  if(isset($_SESSION["id"])) {
+	header("Location:index.php");
+  }
+	$connexion->close();   
 
 ?>
 
