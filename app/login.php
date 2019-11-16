@@ -7,36 +7,28 @@
  
   require 'database.php';
   
-  if (!empty($_POST['email']) && !empty($_POST['password'])) {
-    /*
-	$records = $conn->prepare('SELECT id_user, email, password FROM user WHERE email = :email');
-    $records->bindParam(':email', $_POST['email']);
-    $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
-	
-	$message = '';
-   
-	if($results->num_rows>0){
-	  $message = 'NUMERO DE RESULTADOS';
-      $_SESSION['id_user'] = $results['id_user'];
-      //header("Location: /app/index.php");
-    } else {
-      $message = 'Sorry, those credentials do not match';
+  if (!empty($_POST['username']) && !empty($_POST['password'])) {
+  
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+
+	$sql = "SELECT * FROM users WHERE username = '$username' ";
+	$result = mysqli_query($connexion, $sql);
+	if($row = mysqli_fetch_array($result)){
+    
+    if($password == $row['password']) {
+		  $_SESSION["id"] = $row['id'];
+      header('Location: /app/index.php');
     }
-	*/
-	 Realizamos la consulta para extraer los datos
-	$sql = "SELECT * FROM user WHERE email = '$_POST['email'])'";
-	$result = $connexion->query($sql);
-	if($result->num_rows>0){
-		$_SESSION["id"] = $row['id'];
-		$_SESSION["name"] = $row['name'];
+    else{
+         $message = 'HERE' . $password ;
+    }
   }else{
 	 $message = 'Sorry, those credentials do not match';
   }
+}
   
-  if(isset($_SESSION["id"])) {
-	header("Location:index.php");
-  }
 	$connexion->close();   
 
 ?>
@@ -88,7 +80,7 @@
                   </div>
                   <form class="user" method="POST" action="login.php">
                     <div class="form-group">
-                      <input type="text" name="email" class="form-control form-control-user" id="email" aria-describedby="emailHelp" placeholder="Enter email...">
+                      <input type="text" name="username" class="form-control form-control-user" id="username" aria-describedby="emailHelp" placeholder="Enter username...">
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">
@@ -100,7 +92,7 @@
                       </div>
                     </div>
  
-					<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login">					
+				        	<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login">					
                     <!--
                     <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
@@ -140,5 +132,4 @@
   <script src="js/sb-admin-2.min.js"></script>
 
 </body>
-
 </html>

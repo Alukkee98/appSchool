@@ -10584,9 +10584,11 @@ a:focus {
 }
 
 .bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
-  background-position: center;
-  background-size: cover;
+ background:url(https://images.pexels.com/photos/301926/pexels-photo-301926.jpeg?cs=srgb&dl=adentro-alfabeto-colegio-301926.jpg&fm=jpg); 
+background-position:center; 
+width:300px;
+height:300px;
+border-radius:150px;
 }
 
 .bg-register-image {
