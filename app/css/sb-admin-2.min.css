@@ -10903,9 +10903,10 @@ height:calc(20rem - 43px)!important
  } 
  
  .bg-login-image{ 
-background:url(https://images.pexels.com/photos/301926/pexels-photo-301926.jpeg?cs=srgb&dl=adentro-alfabeto-colegio-301926.jpg&fm=jpg); 
+background:url(https://www.logolynx.com/images/logolynx/03/039b004617d1ef43cf1769aae45d6ea2.png); 
 background-position:center; 
-background-size:cover
+background-size:80%;
+background-repeat: no-repeat;
  } 
  
  .bg-register-image{ 

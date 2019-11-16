@@ -10,7 +10,7 @@
 
 if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['email']) ) {
 	try{
-	$sql = "INSERT INTO user (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :firstName, :lastName)";
+	$sql = "INSERT INTO users (username, password, group_user_id, email, name, lastname) VALUES (:username, :password, :groupUserId, :email, :firstName, :lastName)";
 	$stmt = $conn->prepare($sql);
 	
 	$stmt->bindParam(':username', $_POST['username']);
@@ -36,6 +36,7 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	*/					
 	if ($stmt->execute()) {
 		$message = 'Successfully created new user' ;
+    $login = 'Yes';
 		
 	}
 	}
@@ -73,7 +74,14 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 <body class="bg-gradient-primary">
 	 
     <?php if(!empty($message)): ?>
-      <div class="message"> <p> <?= $message ?></p> </div>
+      <div class="message"> 
+        <p> <?= $message ?></p> 
+         <?php if(!empty($login)): ?>
+           <p> 
+              <a href="login.php">LOGIN</a>
+           </p>
+         <?php endif; ?>
+      </div>
     <?php endif;	?>
 
   <div class="container">
@@ -120,7 +128,7 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 								$result = $connexion->query($sql);
 								if($result->num_rows>0){
 									while($row = $result->fetch_assoc()) {
-										echo '<option value="'.$row[id].'">'.$row[descripcion].'</option>';
+										echo '<option value="'.$row[group_user_id].'">'.$row[descripcion].'</option>';
 									}
 								}
 								
