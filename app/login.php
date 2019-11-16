@@ -24,8 +24,8 @@
       $message = 'Sorry, those credentials do not match';
     }
 	*/
-	 Realizamos la consulta para extraer los datos
-	$sql = "SELECT * FROM user WHERE email = '$_POST['email'])'";
+	// Realizamos la consulta para extraer los datos
+	$sql = "SELECT * FROM user";
 	$result = $connexion->query($sql);
 	if($result->num_rows>0){
 		$_SESSION["id"] = $row['id'];
@@ -37,8 +37,8 @@
   if(isset($_SESSION["id"])) {
 	header("Location:index.php");
   }
-	$connexion->close();   
-
+	$connexion->close();  
+  }	
 ?>
 
 
