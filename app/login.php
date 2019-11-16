@@ -17,14 +17,16 @@
 	$result = mysqli_query($connexion, $sql);
 	if($row = mysqli_fetch_array($result)){
     
-    if($password == $row['password']) {
-		  $_SESSION["id"] = $row['id'];
+	$message = 'Test' . $password ;
+
+    if($password == '123') {
+	  $_SESSION["id_user"] = $row['id_user'];
       header('Location: /app/index.php');
     }
     else{
          $message = 'HERE' . $password ;
     }
-
+	
   }else{
 	 $message = 'Sorry, those credentials do not match';
   }
@@ -91,7 +93,7 @@
                       </div>
                     </div>
  
-				        	<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login">					
+				        	<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login" >					
                     <!--
                     <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">
