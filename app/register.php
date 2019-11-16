@@ -21,12 +21,12 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	$stmt->bindParam(':firstName', $_POST['firstName']);
 	$stmt->bindParam(':lastName', $_POST['lastName']);
  /*
-	$sqlVerify = "SELECT COUNT(*) FROM user WHERE email = :email";
+	$sqlVerify = "SELECT COUNT(*) FROM users WHERE email = :email";
 	$records = $conn->prepare($sqlVerify);
 	$records->bindParam(':email', $_POST['email']);
 	$result = $connexion->query($sqlVerify);
 	/*
-	$sql = "SELECT COUNT(*) FROM user WHERE email = :email";
+	$sql = "SELECT COUNT(*) FROM users WHERE email = :email";
 	$result = $connexion->query($sql);
 	if($result->num_rows>0){
 		while($row = $result->fetch_assoc()) {
