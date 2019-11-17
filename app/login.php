@@ -59,7 +59,7 @@
 <body class="bg-gradient-primary">
 
  <?php if(!empty($message)): ?>
-      <div class="message"> <p> <?= $message ?></p> </div>
+      <div class="message">  <?= $message ?> </div>
     <?php endif;	?>
 	
   <div class="container">

@@ -23,14 +23,18 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	
 	$username = $_POST['username'];
 	$password = $_POST['password'];
-	$email = $_POST
+	$email = $_POST['email'];
 	
-	$sqlVerify = "SELECT COUNT(*) FROM users WHERE username = '$username' OR email";
-	$resultVerify = $connexion->query($sqlVerify);
+	$sqlVerifyUsername = "SELECT COUNT(*) FROM users WHERE username = '$username'";
+	$resultVerifyUsername = $connexion->query($sqlVerifyUsername);
+	
+	$sqlVerifyEmail = "SELECT COUNT(*) FROM users WHERE email = '$email'";
+	$resultVerifyEmail = $connexion->query($sqlVerifyEmail);
 		
-		if($resultVerify->num_rows>0){
-			$message = 'This username is already taken';
-		}else{
+		if($resultVerifyUsername->num_rows>0 OR $resultVerifyEmail->num_rows>0){
+			$message = 'This username/email is already taken';
+		}
+		else{
 			if ($stmt->execute()) {
 				$message = 'Successfully created new user' ;
 				$login = 'Yes';
@@ -74,11 +78,9 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	 
     <?php if(!empty($message)): ?>
       <div class="message"> 
-        <p> <?= $message ?></p> 
+        <?= $message ?>
          <?php if(!empty($login)): ?>
-           <p> 
               <a href="login.php">LOGIN</a>
-           </p>
          <?php endif; ?>
       </div>
     <?php endif;	?>
