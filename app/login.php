@@ -18,7 +18,13 @@
 	if($row = mysqli_fetch_array($result)){
 	
 		if($password == $row['PASSWORD']) {
-			$_SESSION['id_user'] = $_POST['username'];
+			$_SESSION['username'] = $_POST['username'];
+			$_SESSION['id_user'] = $row['ID_USER'];
+			$_SESSION['email'] = $row['EMAIL'];
+			$_SESSION['group_user_id'] = $row['group_user_id'];
+			$_SESSION['name'] = $row['name'];
+			$_SESSION['lastname'] = $row['lastname'];
+			
 		  header('Location: /app/index.php');
 		}
 		else{
