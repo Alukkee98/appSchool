@@ -16,16 +16,14 @@
 	$sql = "SELECT * FROM users WHERE username = '$username' ";
 	$result = mysqli_query($connexion, $sql);
 	if($row = mysqli_fetch_array($result)){
-    
-	$message = 'Test' . $password ;
-
-    if($password == '123') {
-	  $_SESSION["id_user"] = $row['id_user'];
-      header('Location: /app/index.php');
-    }
-    else{
-         $message = 'HERE' . $password ;
-    }
+	
+		if($password == $row['PASSWORD']) {
+			$_SESSION['id_user'] = $_POST['username'];
+		  header('Location: /app/index.php');
+		}
+		else{
+			 $message = 'Sorry, those password do not match with this user';
+		}
 	
   }else{
 	 $message = 'Sorry, those credentials do not match';

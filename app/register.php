@@ -14,7 +14,7 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	$stmt = $conn->prepare($sql);
 	
 	$stmt->bindParam(':username', $_POST['username']);
-	$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+	//$password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 	$stmt->bindParam(':password', $password);
 	$stmt->bindParam(':email', $_POST['email']);
 	$stmt->bindParam(':groupUserId', $_POST['groupUserId']);
