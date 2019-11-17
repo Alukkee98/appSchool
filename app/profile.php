@@ -47,7 +47,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -59,7 +59,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -75,7 +75,7 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+		  <i class="fas fa-graduation-cap"></i>
           <span>Classes</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -321,7 +321,7 @@
 							echo $_SESSION["username"];
 					?>
 				</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" >
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -360,14 +360,15 @@
           <!-- Content Row -->
 
         <div class="row">
+			<div class="col-xs-12 col-sm-8 profile-user">
+				   <i class="fas fa-user-edit"></i> Editar
+                </div>
 			 <div class="col-xs-12 col-sm-8">
-                    <h2><?php echo $_SESSION["name"] . ' ' . $_SESSION["lastname"];?></h2>
+					<h2><?php echo $_SESSION["name"] . ' ' . $_SESSION["lastname"];?></h2>
                     <p><strong>User ID: </strong> <?php echo $_SESSION["id_user"]?> </p>
 					<p><strong>Username: </strong> <?php echo $_SESSION["username"];?> </p>  
-					<p><strong>Email: </strong> <?php echo $_SESSION["email"];?> </p>   					
-        </div>
-        <!-- /.container-fluid -->
-
+					<p><strong>Email: </strong> <?php echo $_SESSION["email"];?> </p>   	
+			</div>
       </div>
       <!-- End of Main Content -->
 

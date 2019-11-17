@@ -43,6 +43,7 @@
 box-sizing:border-box
  } 
  
+ 
  html{ 
 font-family:sans-serif; 
 line-height:1.15; 
@@ -10223,6 +10224,13 @@ height:2rem;
 width:2rem
  } 
  
+ .img-profile{
+background:url(https://image.flaticon.com/icons/svg/149/149071.svg); 
+background-size:100%;
+background-position:center; 
+background-repeat: no-repeat;
+ }
+ 
  .topbar{ 
 height:4.375rem
  } 
@@ -11019,6 +11027,10 @@ width:12.5rem
   width: 100%;
   text-align: center;
   background-color:#ffffff;
+ }
+ 
+ .profile-user{
+ color: #4e73df;
  }
  
  @-webkit-keyframes noise-anim{ 

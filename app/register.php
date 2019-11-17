@@ -51,7 +51,6 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
   
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,7 +123,6 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 						<select class="form-control mdb-select md-form" name="groupUserId">
 							<option value="" disabled selected>*Choose your permission</option>
 						<?php
-								// Realizamos la consulta para extraer los datos
 								$sql = "SELECT * FROM group_user";
 								$result = $connexion->query($sql);
 								if($result->num_rows>0){
@@ -132,7 +130,6 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 										echo '<option value="'.$row[GROUP_USER_ID].'">'.$row[DESCRIPCION].'</option>';
 									}
 								}
-								
 								$connexion->close();
 								?>
 						</select>

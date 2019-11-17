@@ -47,7 +47,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -59,7 +59,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -75,14 +75,25 @@
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
+          <i class="fas fa-graduation-cap"></i>
           <span>Classes</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <h6 class="collapse-header">Courses List:</h6>
+			<a class="collapse-item"  href="#" data-toggle="modal" data-target="#addCourseModal">
+				<i class="fas fa-plus"> </i>Add course
+			</a>
+			<?php
+								$sqlCourses = "SELECT * FROM courses";
+								$result = $connexion->query($sqlCourses);
+								if($result->num_rows>0){
+									while($row = $result->fetch_assoc()) {
+										echo '<a class="collapse-item">'.$row['NAME'].'</a>';
+									}
+								}
+								$connexion->close();
+			?>
           </div>
         </div>
       </li>
@@ -321,7 +332,7 @@
 							echo $_SESSION["username"];
 					?>
 				</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                <img class="img-profile rounded-circle" >
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -672,6 +683,32 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="logout.php">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   <!-- Logout Modal-->
+  <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Add Course</h5>
+        </div>
+        <div class="modal-body">
+			<form class="user" action="register.php" method="POST" autocomplete="off">
+				 <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="firstName" name="firstName" placeholder="First Name" >
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control form-control-user" id="lastName" name="lastName" placeholder="Last Name">
+                  </div>
+  			
+		</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
+		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="register" value="Register Account">					
+			</form>
         </div>
       </div>
     </div>
