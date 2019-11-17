@@ -129,7 +129,7 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 								$result = $connexion->query($sql);
 								if($result->num_rows>0){
 									while($row = $result->fetch_assoc()) {
-										echo '<option value="'.$row[group_user_id].'">'.$row[descripcion].'</option>';
+										echo '<option value="'.$row[GROUP_USER_ID].'">'.$row[DESCRIPCION].'</option>';
 									}
 								}
 								

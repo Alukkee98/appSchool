@@ -20,10 +20,10 @@
 		if($password == $row['PASSWORD']) {
 			$_SESSION['username'] = $_POST['username'];
 			$_SESSION['id_user'] = $row['ID_USER'];
-			$_SESSION['email'] = $row['email'];
-			$_SESSION['group_user_id'] = $row['group_user_id'];
-			$_SESSION['name'] = $row['name'];
-			$_SESSION['lastname'] = $row['lastname'];
+			$_SESSION['email'] = $row['EMAIL'];
+			$_SESSION['group_user_id'] = $row['GROUP_USER_ID'];
+			$_SESSION['name'] = $row['NAME'];
+			$_SESSION['lastname'] = $row['LASTNAME'];
 			
 		  header('Location: /app/index.php');
 		}
