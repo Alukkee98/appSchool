@@ -10,7 +10,23 @@
   }else{
 	 header('Location: /app/login.php');
   }							
-				
+			
+	
+  $message  = '';
+  $name = '';
+  $code ='';
+ 
+if ( !empty($_POST['name']) && !empty($_POST['code'])  ) {
+	
+	$name = $_POST['name'];
+	$code = $_POST['code'];
+	
+	$sqlCourses = "INSERT INTO courses( NAME, COD_COURSE) VALUES ('$name' , '$code') ";
+	$result = $connexion->query($sqlCourses);
+	
+	
+	$connexion->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -696,18 +712,17 @@
           <h5 class="modal-title" id="exampleModalLabel">Add Course</h5>
         </div>
         <div class="modal-body">
-			<form class="user" action="register.php" method="POST" autocomplete="off">
+			<form class="user" action="index.php" method="POST" autocomplete="off">
 				 <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="firstName" name="firstName" placeholder="First Name" >
+                    <input type="text" class="form-control form-control-user" id="name" name="name" placeholder="Course Name" >
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="lastName" name="lastName" placeholder="Last Name">
-                  </div>
-  			
+                    <input type="text" class="form-control form-control-user" id="code" name="code" placeholder="Course Code">
+                  </div>  			
 		</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
-		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="register" value="Register Account">					
+		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="index" value="Register Course">					
 			</form>
         </div>
       </div>
