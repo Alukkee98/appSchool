@@ -23,7 +23,7 @@ if ( !empty($_POST['name']) && !empty($_POST['code'])  ) {
 	
 	$sqlCourses = "INSERT INTO courses( NAME, COD_COURSE) VALUES ('$name' , '$code') ";
 	$result = $connexion->query($sqlCourses);
-	
+	header("Refresh:0; url=/app/index.php");
 	
 	$connexion->close();
 }
@@ -97,9 +97,6 @@ if ( !empty($_POST['name']) && !empty($_POST['code'])  ) {
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Courses List:</h6>
-			<a class="collapse-item"  href="#" data-toggle="modal" data-target="#addCourseModal">
-				<i class="fas fa-plus"> </i>Add course
-			</a>
 			<?php
 								$sqlCourses = "SELECT * FROM courses";
 								$result = $connexion->query($sqlCourses);
@@ -117,8 +114,8 @@ if ( !empty($_POST['name']) && !empty($_POST['code'])  ) {
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
+          <i class="fas fa-clipboard-list"></i>
+          <span>Subject</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">

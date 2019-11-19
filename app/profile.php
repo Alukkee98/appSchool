@@ -359,16 +359,19 @@
           </div>
           <!-- Content Row -->
 
-        <div class="row">
-			<div class="col-xs-12 col-sm-8 profile-user">
-				   <i class="fas fa-user-edit"></i> Editar
-                </div>
-			 <div class="col-xs-12 col-sm-8">
-					<h2><?php echo $_SESSION["name"] . ' ' . $_SESSION["lastname"];?></h2>
-                    <p><strong>User ID: </strong> <?php echo $_SESSION["id_user"]?> </p>
-					<p><strong>Username: </strong> <?php echo $_SESSION["username"];?> </p>  
-					<p><strong>Email: </strong> <?php echo $_SESSION["email"];?> </p>   	
-			</div>
+      <div class="row">
+        <div class="card border-left-primary shadow h-100 py-2">
+          <div class="card-body">
+            <div class="row no-gutters align-items-center">
+  			     <div class="col-xs-12 col-sm-8">
+  					   <h2><?php echo $_SESSION["name"] . ' ' . $_SESSION["lastname"];?></h2>
+              <p><strong>User ID: </strong> <?php echo $_SESSION["id_user"]?> </p>
+    					<p><strong>Username: </strong> <?php echo $_SESSION["username"];?> </p>  
+    					<p><strong>Email: </strong> <?php echo $_SESSION["email"];?> </p>   	
+  			    </div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- End of Main Content -->
 

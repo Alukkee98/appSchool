@@ -31,15 +31,15 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	$sqlVerifyEmail = "SELECT COUNT(*) FROM users WHERE email = '$email'";
 	$resultVerifyEmail = $connexion->query($sqlVerifyEmail);
 		
-		if($resultVerifyUsername->num_rows>0 OR $resultVerifyEmail->num_rows>0){
-			$message = 'This username/email is already taken';
-		}
-		else{
+		//if($resultVerifyUsername->num_rows>0 OR $resultVerifyEmail->num_rows>0){
+		//	$message = 'This username/email is already taken';
+		//}
+		//else{
 			if ($stmt->execute()) {
 				$message = 'Successfully created new user' ;
 				$login = 'Yes';
 			}
-		}
+		//}
 	}
 	
 	catch(PDOException $e) {
