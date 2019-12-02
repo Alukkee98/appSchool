@@ -8,7 +8,7 @@
 	  //Cargar datos user
 	$_SESSION['id_user'];
   }else{
-	 header('Location: /app/login.php');
+	 header('Location: login.php');
   }							
 			
 	
@@ -701,7 +701,7 @@ if ( !empty($_POST['name']) && !empty($_POST['code'])  ) {
     </div>
   </div>
   
-   <!-- Logout Modal-->
+   <!-- Course Modal-->
   <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

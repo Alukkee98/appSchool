@@ -25,7 +25,7 @@
 			$_SESSION['name'] = $row['NAME'];
 			$_SESSION['lastname'] = $row['LASTNAME'];
 			
-		  header('Location: /app/index.php');
+		  header('Location: index.php');
 		}
 		else{
 			 $message = 'Sorry, those password do not match with this user';
