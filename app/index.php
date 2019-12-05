@@ -23,7 +23,7 @@ if ( !empty($_POST['name']) && !empty($_POST['code'])  ) {
 	
 	$sqlCourses = "INSERT INTO courses( NAME, COD_COURSE) VALUES ('$name' , '$code') ";
 	$result = $connexion->query($sqlCourses);
-	header("Refresh:0; url=/app/index.php");
+	header("Refresh:0; url=index.php");
 	
 }
 ?>
@@ -425,6 +425,7 @@ if ( !empty($_POST['name']) && !empty($_POST['code'])  ) {
 							</div>
 						  </div>
 						</div>';
+						
 					}
 				}
 			?>
