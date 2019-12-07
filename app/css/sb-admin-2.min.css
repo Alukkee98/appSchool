@@ -1338,8 +1338,8 @@ max-width:16.66667%
  } 
  
  .col-xl-3{ 
-flex:0 0 25%; 
-max-width:25%
+flex:0 0 33%; 
+max-width:33%
  } 
  
  .col-xl-4{ 
@@ -9636,6 +9636,9 @@ font-style:italic!important
  .text-white{ 
 color:#fff!important
  } 
+a .text-white{ 
+color:#fff!important
+ } 
  
  .text-primary{ 
 color:#4e73df!important
@@ -10106,7 +10109,7 @@ justify-content:center
 border-left:.25rem solid #4e73df!important
  } 
  
- .border-bottom-primary{ 
+	{ 
 border-bottom:.25rem solid #4e73df!important
  } 
  

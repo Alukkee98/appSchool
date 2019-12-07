@@ -5,14 +5,18 @@
   require 'database.php';
 
   if (isset($_SESSION['id_user'])) {
-	  //Cargar datos user
+	  //Cargar datos user & class
 	$_SESSION['id_user'];
+	$_SESSION['id_class'];
+	
+	$id_class = $_SESSION['id_class'];
   }else{
 	 header('Location: login.php');
   }							
-			
+	
 	
   $message  = '';
+  
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +49,7 @@
       <div class="message"> <?= $message ?> </div>
     <?php endif;	?>
 	
-    <!-- Sidebar -->
+<!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
@@ -319,71 +323,61 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+		
+		  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Classes</h1>
+          </div>
+		  
           <!-- Page Heading -->
           <!-- Content Row -->
-			<div class="row">
+          <div class="row">
 
-				<!-- CLASSES -->
-				<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow bg-primary text-white h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="text-white" href="classes.php">
-							  <div class="text-xs font-weight-bold text-uppercase mb-2">
-								CLASSES
-							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-				</div>
-				
-				<!-- SUUBJECTS -->
-				<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow bg-warning text-white h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="text-white" href="subjects.php">
-							  <div class="text-xs font-weight-bold text-uppercase mb-2">
-								SUBJECTS
-							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-book-open fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-				</div>
-				
-				<!-- STUDENTS -->
-				<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow bg-success text-white h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="text-white" href="students.php">
-							  <div class="text-xs font-weight-bold text-uppercase mb-2">
-								STUDENTS
-							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-user-graduate fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-				</div>		          
-			</div>
+            <!-- Earnings (Monthly) Card Example -->			
+			<div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Age</th>
+                      <th>Start date</th>
+                      <th>Salary</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Age</th>
+                      <th>Start date</th>
+                      <th>Salary</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+                    <tr>
+                      <td>Tiger Nixon</td>
+                      <td>System Architect</td>
+                      <td>Edinburgh</td>
+                      <td>61</td>
+                      <td>2011/04/25</td>
+                      <td>$320,800</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+            
+            
+
+        </div>
         <!-- /.container-fluid -->
 
       </div>
@@ -428,7 +422,8 @@
       </div>
     </div>
   </div>
-  
+ 
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

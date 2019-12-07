@@ -45,7 +45,7 @@
       <div class="message"> <?= $message ?> </div>
     <?php endif;	?>
 	
-    <!-- Sidebar -->
+<!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
@@ -319,71 +319,50 @@
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-
+		
+		  <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">All Subjects</h1>
+          </div>
+		  
           <!-- Page Heading -->
           <!-- Content Row -->
-			<div class="row">
+          <div class="row">
 
-				<!-- CLASSES -->
-				<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow bg-primary text-white h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="text-white" href="classes.php">
-							  <div class="text-xs font-weight-bold text-uppercase mb-2">
-								CLASSES
+            <!-- Earnings (Monthly) Card Example -->
+			<?php
+				$sqlSubjectsView = "SELECT * FROM SUBJECTS";
+				$result = $connexion->query($sqlSubjectsView);
+				if($result->num_rows>0){
+					while($row = $result->fetch_assoc()) {
+						echo '
+						<div class="col-xl-3 col-md-6 mb-4">
+						  <div class="card shadow h-100 py-2">
+							<div class="card-body">
+							  <div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<a href="subject-detail.php" onclick="'.$_SESSION['id_class']= $row['ID_CLASS'].'" >
+									  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+										<input type="hidden" name="class" id="class">
+										'.$row['NAME'].'
+									  </div>
+									</a>
+								</div>
+								<div class="col-auto">
+								  
+								  <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+								</div>
 							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-				</div>
-				
-				<!-- SUUBJECTS -->
-				<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow bg-warning text-white h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="text-white" href="subjects.php">
-							  <div class="text-xs font-weight-bold text-uppercase mb-2">
-								SUBJECTS
-							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-book-open fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-				</div>
-				
-				<!-- STUDENTS -->
-				<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow bg-success text-white h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="text-white" href="students.php">
-							  <div class="text-xs font-weight-bold text-uppercase mb-2">
-								STUDENTS
-							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-user-graduate fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-				</div>		          
-			</div>
+							</div>
+						  </div>
+						</div>';
+						
+					}
+				}
+			?>
+            
+            
+
+        </div>
         <!-- /.container-fluid -->
 
       </div>
@@ -428,7 +407,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
