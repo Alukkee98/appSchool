@@ -9,6 +9,7 @@
 	$_SESSION['id_user'];
 	$_SESSION['id_class'];
 	
+	$id_user = $_SESSION['id_user'];
 	$id_class = $_SESSION['id_class'];
   }else{
 	 header('Location: login.php');
@@ -325,55 +326,55 @@
         <div class="container-fluid">
 		
 		  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Classes</h1>
+            <h1 class="h3 mb-0 text-gray-800">
+				Class : 
+			</h1>
           </div>
 		  
           <!-- Page Heading -->
           <!-- Content Row -->
           <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->			
-			<div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                    <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Edinburgh</td>
-                      <td>61</td>
-                      <td>2011/04/25</td>
-                      <td>$320,800</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+             <!-- Earnings (Monthly) Card Example -->
+			<?php
+			if($_SESSION['group_user_id'] != 1){
+				$sqlCoursesView = "SELECT * FROM subjects WHERE id_subject in ( SELECT id_subject FROM rel_user_subjects WHERE id_user = '$id_user' )";
+			}else{
+				$sqlCoursesView = "SELECT * FROM subjects";
+			}
+				$result = $connexion->query($sqlCoursesView);
+				if($result->num_rows>0){
+					while($row = $result->fetch_assoc()) {
+						echo '
+						<div class="col-xl-3 col-md-6 mb-4">
+						  <div class="card shadow h-100 py-2">
+							<div class="card-body">
+							  <div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<a href="class-detail.php" onclick="
+									'.$_SESSION['id_class']= $row['ID_CLASS'].
+									  $_SESSION['name_class']= $row['NAME'].	
+									'
+									" >
+									  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+										<input type="hidden" name="class" id="class">
+										'.$row['NAME'].'
+									  </div>
+									</a>
+								</div>
+								<div class="col-auto">
+								  
+								  <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						</div>';
+						
+					}
+				}
+			?>			
+		 
             
             
 

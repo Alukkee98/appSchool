@@ -7,16 +7,20 @@
   if (isset($_SESSION['id_user'])) {
 	  //Cargar datos user
 	$_SESSION['id_user'];
+	
+	$id_user = $_SESSION['id_user'];
   }else{
 	 header('Location: login.php');
   }							
 			
 	
   $message  = '';
+  
+  
   $name = '';
   $code ='';
   $color ='';
- 
+	
 if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])  ) {
 	
 	$name = $_POST['name'];
@@ -349,7 +353,11 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
 
             <!-- Earnings (Monthly) Card Example -->
 			<?php
+			if($_SESSION['group_user_id'] != 1){
+				$sqlCoursesView = "SELECT * FROM classes WHERE id_class in ( SELECT id_class FROM rel_user_classes WHERE id_user = '$id_user' )";
+			}else{
 				$sqlCoursesView = "SELECT * FROM classes";
+			}
 				$result = $connexion->query($sqlCoursesView);
 				if($result->num_rows>0){
 					while($row = $result->fetch_assoc()) {
@@ -359,7 +367,11 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
 							<div class="card-body">
 							  <div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-									<a href="class-detail.php" onclick="'.$_SESSION['id_class']= $row['ID_CLASS'].'" >
+									<a href="class-detail.php" onclick="
+									'.$_SESSION['id_class']= $row['ID_CLASS'].
+									  $_SESSION['name_class']= $row['NAME'].	
+									'
+									" >
 									  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
 										<input type="hidden" name="class" id="class">
 										'.$row['NAME'].'
