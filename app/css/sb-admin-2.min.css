@@ -10932,6 +10932,12 @@ background-position:center;
 background-size:cover
  } 
  
+.bg-profile-image{ 
+height: 20rem;
+width: 20rem;
+} 
+ 
+ 
  form.user .custom-checkbox.small label{ 
 line-height:1.5rem
  } 

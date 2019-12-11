@@ -7,10 +7,11 @@
   if (isset($_SESSION['id_user'])) {
 	  //Cargar datos user
 	$_SESSION['id_user'];
+	
+	$id_user = $_SESSION['id_user'];
   }else{
 	 header('Location: login.php');
-  }		
-					
+  }							
 			
 	
   $message  = '';
@@ -28,7 +29,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>AdmSchool - Students</title>
+  <title>AdmSchool - Classes</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,6 +37,9 @@
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  
+    <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -58,7 +62,7 @@
       <!-- Main Content -->
       <div id="content">
 
-       	<!-- Page Topbar -->
+        <!-- Page Topbar -->
 		<?php 
 			require 'topbar.php';
 		?>
@@ -67,44 +71,51 @@
         <div class="container-fluid">
 		
 		  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">All Students</h1>
+            <h1 class="h3 mb-0 text-gray-800">Administration</h1>
           </div>
 		  
           <!-- Page Heading -->
           <!-- Content Row -->
           <div class="row">
 
-            <!-- Earnings (Monthly) Card Example -->
-			<?php
-				$sqlStudentsView = "SELECT * FROM STUDENTS";
-				$result = $connexion->query($sqlStudentsView);
-				if($result->num_rows>0){
-					while($row = $result->fetch_assoc()) {
-						echo '
-						<div class="col-xl-3 col-md-6 mb-4">
-						  <div class="card shadow h-100 py-2">
-							<div class="card-body">
-							  <div class="row no-gutters align-items-center">
-								<div class="col mr-2">
-									<a href="students-detail.php" onclick="'.$_SESSION['id_class']= $row['ID_CLASS'].'" >
-									  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
-										<input type="hidden" name="class" id="class">
-										'.$row['SURNAME'].'  '.$row['SURNAME2'].',  '.$row['NAME'].'
-									  </div>
-									</a>
-								</div>
-								<div class="col-auto">
-								  <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
-								</div>
+   
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card shadow h-100 py-2">
+					<div class="card-body">
+					  <div class="row no-gutters align-items-center">
+						<div class="col mr-2">
+							<a href="admin-user.php">		
+							 <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+								USERS
 							  </div>
-							</div>
-						  </div>
-						</div>';
-						
-					}
-				}
-			?>
-            
+							</a>
+						</div>
+						<div class="col-auto">
+							<i class="fas fa-user-edit fa-2x text-gray-300"></i>
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-xl-3 col-md-6 mb-4">
+				<div class="card shadow h-100 py-2">
+					<div class="card-body">
+					  <div class="row no-gutters align-items-center">
+						<div class="col mr-2">
+							<a href="admin-groupUser.php">		
+							 <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+								GROUP USER
+							  </div>
+							</a>
+						</div>
+						<div class="col-auto">
+						  <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
             
 
         </div>
@@ -148,6 +159,42 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="logout.php">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   <!-- Course Modal-->
+  <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Class</h5>
+        </div>
+        <div class="modal-body">
+			<form class="user" action="index.php" method="POST" autocomplete="off">
+				 <div>
+                    <input type="text" class="form-control form-control-sm" id="name" name="name" placeholder="Primero A" >
+                  </div>
+                  <div>
+                    <input type="text" class="form-control form-control-sm" id="code" name="code" placeholder="1A">
+                  </div> 
+				  <div>
+					<select class="form-control form-control-sm" id="color" name="color">
+						<option value="">Select</option>
+						<option value="US">United States</option>
+						<option value="UK">United Kingdom</option>
+						<option value="France">France</option>
+						<option value="Mexico">Mexico</option>
+						<option value="Russia">Russia</option>
+						<option value="Japan">Japan</option>
+					</select>
+                  </div> 
+		</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
+		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="index" value="Save Class">					
+			</form>
         </div>
       </div>
     </div>

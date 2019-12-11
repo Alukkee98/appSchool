@@ -15,8 +15,8 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="index.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+		<i class="fas fa-fw fa-home"></i>
+		<span>Dashboard</span></a>
       </li>
 
       <!-- Divider -->
@@ -27,30 +27,30 @@
         Interface
       </div>
 
-      <!-- Nav Item - Classes Collapse Menu -->
+      <!-- Nav Item - Classes Collapse Menu 
       <li class="nav-item">
         <a class="nav-link collapsed" href="classes.php" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
           <i class="fas fa-graduation-cap"></i>
           <span>Classes</span>
         </a>
-      </li>
+      </li>-->
 
-      <!-- Nav Item - Subjects Collapse Menu -->
+      <!-- Nav Item - Subjects Collapse Menu
 	   <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 		  <i class="fas fa-book-open"></i>
           <span>Subjects</span>
         </a>
-      </li>
+      </li>-->
 	  
 
-      <!-- Nav Item - Students Collapse Menu -->
+      <!-- Nav Item - Students Collapse Menu 
 		<li class="nav-item">
 			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
 			  <i class="fas fa-user-graduate"></i>
 			  <span>Students</span>
 			</a>
-		</li>
+		</li>-->
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
@@ -65,7 +65,18 @@
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
       </li>
-
+	  
+	  <?php
+			if($_SESSION['group_user_id'] == 1){
+			echo'
+			<li class="nav-item">
+				<a class="nav-link" href="administration.php">
+				<i class="fas fa-user-shield"></i>
+				<span>Administration</span></a>
+			</li>
+			';
+			}
+      ?>
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
