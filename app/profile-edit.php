@@ -66,6 +66,7 @@
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Save</a>
           </div>
           <!-- Content Row -->
 
@@ -75,7 +76,7 @@
 			<div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h6 class="m-0 font-weight-bold text-primary">Profile Detail</h6>
+				<h6 class="m-0 font-weight-bold text-primary">Profile Edit</h6>
             </div>
 			
             <!-- Card Body -->
@@ -86,56 +87,21 @@
 								<img src="https://image.flaticon.com/icons/svg/149/149071.svg" class="bg-profile-image">
 							</div>
 							<div class="col-lg-6">
-								   <h3><?php echo $_SESSION["name"] . ' ' . $_SESSION["lastname"];?></h3>
-									<dd><strong>Username</strong> </dd> <dl><?php echo $_SESSION["username"];?> </dl>  
-									<dd><strong>Email address</strong> </dd> <dl><?php echo $_SESSION["email"];?> </dl>   	
+								<form class="user" action="register.php" method="POST" autocomplete="off">
+								    <h3><?php echo $_SESSION["name"] . ' ' . $_SESSION["lastname"];?></h3>
+									<dd><strong>Username</strong> </dd>
+									<input type="text" class="form-control form-control-user" id="firstName" name="firstName" placeholder="<?php echo $_SESSION["username"];?>" > 
+									<dd><strong>Email address</strong> </dd> 
+									<input type="text" class="form-control form-control-user" id="email" name="email" placeholder="<?php echo $_SESSION["email"];?>" > 
 									<dd><strong>Role</strong> </dd> <dl><?php echo $_SESSION["group_user_name"]?> </dl>
 									<dd><strong>User ID</strong> </dd> <dl><?php echo $_SESSION["id_user"]?> </dl>
-
+								</form>
 							</div>
 						</div>
 					  </div>
 					</div>
 			</div>
 		</div>
-
-		<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#passwordModal">
-							  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
-								CHANGE PASSWORD
-							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-key fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-		</div>	
-
-		<div class="col-xl-3 col-md-6 mb-4">
-				  <div class="card shadow h-100 py-2">
-					<div class="card-body">
-					  <div class="row no-gutters align-items-center">
-						<div class="col mr-2">
-							<a class="text-white" href="profile-edit.php">
-							  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
-								EDIT PROFILE
-							  </div>
-							</a>
-						</div>
-						<div class="col-auto">
-							<i class="fas fa-user-edit fa-2x text-gray-300"></i>
-						</div>
-					   </div>
-					</div>
-				 </div>
-		</div>	
 				
 		
       <!-- End of Main Content -->
@@ -160,35 +126,7 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-	
-  <!-- Password Modal-->
-  <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Do you want change your password?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-			<form action="index.php" method="POST" autocomplete="off">
-				 <div class="form-modal">
-                    <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Password" >
-                  </div>
-				 <div class="form-modal">
-                    <input type="password" class="form-control form-control-sm" id="passwordVerify" name="passwordVerify" placeholder="Repeat Password">
-                  </div> 
-			</form>
-		</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="profile.php">Save</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+
   <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

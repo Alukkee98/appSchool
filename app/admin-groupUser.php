@@ -89,37 +89,37 @@
           <!-- Page Heading -->
           <!-- Content Row -->
           <div class="row">
-
-            <!-- Classes -->
-			<?php
-				$sqlGroupUserView = "SELECT * FROM group_user";
-				$result = $connexion->query($sqlGroupUserView);
-				if($result->num_rows>0){
-					while($row = $result->fetch_assoc()) {
-						echo '
-						<div class="col-xl-3 col-md-6 mb-4">
-						  <div class="card shadow h-100 py-2">
-							<div class="card-body">
-							  <div class="row no-gutters align-items-center">
-								<div class="col mr-2">
-									  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
-										'.$row['DESCRIPCION'].'
-									  </div>
-								</div>
-								<div class="col-auto">
-								  <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
-								</div>
-							  </div>
-							</div>
-						  </div>
-						</div>';
-						
+			<div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+            </div>
+            <div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+				<!-- Admin Classes -->
+				<?php
+					$sqlGroupUserView = "SELECT * FROM group_user";
+					$result = $connexion->query($sqlGroupUserView);
+					if($result->num_rows>0){
+						while($row = $result->fetch_assoc()) {
+							echo '
+							<td>
+								'.$row['DESCRIPCION'].'
+							</td>';
+							
+						}
 					}
-				}
-			?>
+				?>
 
-            
-
+				</table>
+			</div>
+		</div>
         </div>
         <!-- /.container-fluid -->
 

@@ -25,21 +25,17 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
 	$password = $_POST['password'];
 	$email = $_POST['email'];
 	
-	$sqlVerifyUsername = "SELECT COUNT(*) FROM users WHERE username = '$username'";
-	$resultVerifyUsername = $connexion->query($sqlVerifyUsername);
-	
-	$sqlVerifyEmail = "SELECT COUNT(*) FROM users WHERE email = '$email'";
-	$resultVerifyEmail = $connexion->query($sqlVerifyEmail);
+	$sqlVerify = "SELECT COUNT(*) FROM users WHERE username = '$username' OR  email = '$email'";
+	$resultVerify = $connexion->query($sqlVerify);
 		
-		//if($resultVerifyUsername->num_rows>0 OR $resultVerifyEmail->num_rows>0){
-		//	$message = 'This username/email is already taken';
-		//}
-		//else{
+		if($sqlVerify->num_rows>0){
+			$message = 'This username/email is already taken';
+		}else{
 			if ($stmt->execute()) {
 				$message = 'Successfully created new user' ;
-				$login = 'Yes';
+				header('Location: login.php');
 			}
-		//}
+		}
 	}
 	
 	catch(PDOException $e) {
@@ -78,10 +74,7 @@ if ( !empty($_POST['username']) && !empty($_POST['password']) && !empty($_POST['
     <?php if(!empty($message)): ?>
       <div class="message"> 
         <?= $message ?>
-         <?php if(!empty($login)): ?>
-              <a href="login.php">LOGIN</a>
-         <?php endif; ?>
-      </div>
+       </div>
     <?php endif;	?>
 
   <div class="container">
