@@ -9,13 +9,12 @@
 	$_SESSION['id_user'];
 	
 	$id_user = $_SESSION['id_user'];
-	$id_class = $_SESSION['id_class'];
   }else{
 	 header('Location: login.php');
   }							
 	
 	
-  $message  = '';
+  $message  =  '' ;
   
 ?>
 
@@ -94,7 +93,7 @@
                   </thead>
                   <tbody>
 					<?php
-						$sqlStudentsTable = "SELECT * FROM students";
+            $sqlStudentsTable = "SELECT * FROM students WHERE ID_CLASS = ' " . $_GET["ID_CLASS"] . "'";
 						$result = $connexion->query($sqlStudentsTable);
 						$cont = 1;
 						if($result->num_rows>0){
@@ -108,7 +107,10 @@
 							';
 							$cont++;
 							}
-						}
+						}else{
+              echo 'No students in this class'
+              ;
+            }
 					?>
                   </tbody>
                 </table>

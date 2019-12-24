@@ -165,42 +165,6 @@
       </div>
     </div>
   </div>
-  
-   <!-- Course Modal-->
-  <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New Class</h5>
-        </div>
-        <div class="modal-body">
-			<form class="user" action="index.php" method="POST" autocomplete="off">
-				 <div>
-                    <input type="text" class="form-control form-control-sm" id="name" name="name" placeholder="Primero A" >
-                  </div>
-                  <div>
-                    <input type="text" class="form-control form-control-sm" id="code" name="code" placeholder="1A">
-                  </div> 
-				  <div>
-					<select class="form-control form-control-sm" id="color" name="color">
-						<option value="">Select</option>
-						<option value="US">United States</option>
-						<option value="UK">United Kingdom</option>
-						<option value="France">France</option>
-						<option value="Mexico">Mexico</option>
-						<option value="Russia">Russia</option>
-						<option value="Japan">Japan</option>
-					</select>
-                  </div> 
-		</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
-		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="index" value="Save Class">					
-			</form>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

@@ -7,10 +7,26 @@
 
   if (isset($_SESSION['id_user'])) {
 	  //Cargar datos user
-	$_SESSION['id_user'];
+  $_SESSION['id_user'];
+  
+  $id_user = $_SESSION['id_user'];
   }else{
 	 header('Location: /app/login.php');
-  }							
+  }	
+  
+  $password = '';
+  $passwordVerify ='';
+
+	
+if ( !empty($_POST['password']) && !empty($_POST['passwordVerify']) ) {
+  echo 'Im here';
+	$password = $_POST['password'];
+	$passwordVerify = $_POST['passwordVerify'];
+  
+  $sqlPassword = "UPDATE users SET password = 'test'";
+  $result = $connexion->query($sqlPassword);
+    
+}
 				
 ?>
 

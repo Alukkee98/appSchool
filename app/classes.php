@@ -16,7 +16,6 @@
 	
   $message  = '';
   
-  
   $name = '';
   $code ='';
   $color ='';
@@ -114,10 +113,8 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
 							<div class="card-body">
 							  <div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-									<a href="class-detail.php" onclick=" '.
-									
-									 $_SESSION["id_class"] = $row['ID_CLASS'] .' ">
-									  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
+                  <a href="class-detail.php?ID_CLASS='.$row['ID_CLASS'].'">
+                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
 										'.$row['NAME'].'
 									  </div>
 									</a>
