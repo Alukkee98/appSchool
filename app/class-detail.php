@@ -93,7 +93,7 @@
                   </thead>
                   <tbody>
 					<?php
-            $sqlStudentsTable = "SELECT * FROM students WHERE ID_CLASS = ' " . $_GET["ID_CLASS"] . "'";
+            $sqlStudentsTable = "SELECT * FROM students WHERE ID_CLASS ='". $_GET["ID_CLASS"] ."'";
 						$result = $connexion->query($sqlStudentsTable);
 						$cont = 1;
 						if($result->num_rows>0){
