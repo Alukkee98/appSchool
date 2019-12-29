@@ -31,12 +31,15 @@
 
   <title>AdmSchool - Class Detail</title>
 
-  <!-- Custom fonts for this template-->
+  <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+  <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -44,7 +47,8 @@
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-	<?php if(!empty($message)): ?>
+
+    <?php if(!empty($message)): ?>
       <div class="message"> <?= $message ?> </div>
     <?php endif;	?>
 	
@@ -52,74 +56,71 @@
 	<?php 
 		require 'sidebar.php';
 	?>
-	
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
       <div id="content">
-	
-		<!-- Page Topbar -->
+
+        	<!-- Page Topbar -->
 		<?php 
-			require 'topbar.php';
-		?>
+    require 'topbar.php';
+  ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-		
-		  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">
-				Class : 
-			</h1>
-          </div>
-		  
-          <!-- Page Heading -->
-          <!-- Content Row -->
-          <div class="row">
 
-            <div class="card shadow mb-4">
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">Class: </h1>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="dataTable" width ="100%" cellspacing="0">
                   <thead>
                     <tr>
-					  <th>Id</th>
+                      <th>Id</th>
                       <th>Name</th>
                       <th>Surname</th>
                     </tr>
                   </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Id</th>
+                      <th>Surname</th>
+                      <th>Name</th>
+                    </tr>
+                  </tfoot>
                   <tbody>
-					<?php
-            $sqlStudentsTable = "SELECT * FROM students WHERE ID_CLASS ='". $_GET["ID_CLASS"] ."'";
-						$result = $connexion->query($sqlStudentsTable);
-						$cont = 1;
-						if($result->num_rows>0){
-							while($row = $result->fetch_assoc()) {
-							echo '
-							<tr>
-							  <td>'.$cont.'</td>
-							  <td>'.$row['NAME'].'</td>
-							  <td>'.$row['SURNAME'].'  '.$row['SURNAME2'].'</td>
-							</tr>
-							';
-							$cont++;
-							}
-						}else{
-              echo 'No students in this class'
-              ;
-            }
-					?>
+                    <?php
+                    $sqlStudentsTable = "SELECT * FROM students WHERE ID_CLASS =' ". $_GET["ID_CLASS"] ."'";
+                    $result = $connexion->query($sqlStudentsTable);
+                    $cont = 1;
+                    if($result->num_rows>0){
+                      while($row = $result->fetch_assoc()) {
+                      echo '
+                      <tr>
+                        <td>'.$cont.'</td>
+                        <td>'.$row['SURNAME'].'  '.$row['SURNAME2'].'</td>
+                        <td>'.$row['NAME'].'</td>
+                      </tr>
+                      ';
+                      $cont++;
+                      }
+                    }else{
+                      echo 'No students in this class'
+                      ;
+                    }
+                  ?>
                   </tbody>
                 </table>
               </div>
             </div>
-          </div>			
-		 
-            
-            
+          </div>
 
         </div>
         <!-- /.container-fluid -->
@@ -161,12 +162,11 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="logout.php">Logout</a>
+          <a class="btn btn-primary" href="login.html">Logout</a>
         </div>
       </div>
     </div>
   </div>
- 
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -179,11 +179,11 @@
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="js/demo/datatables-demo.js"></script>
 
 </body>
 

@@ -139,7 +139,7 @@ if ( !empty($_POST['password']) && !empty($_POST['passwordVerify']) ) {
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="text-white" href="profile-edit.php">
+							<a class="text-white" href="#">
 							  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
 								EDIT PROFILE
 							  </div>
