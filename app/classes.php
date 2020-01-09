@@ -6,11 +6,10 @@
 
   if (isset($_SESSION['id_user'])) {
 	  //Cargar datos user
-	$_SESSION['id_user'];
-	
-	$id_user = $_SESSION['id_user'];
+	  $_SESSION['id_user'];
+	  $id_user = $_SESSION['id_user'];
   }else{
-	 header('Location: login.php');
+	  header('Location: login.php');
   }							
 			
 	
@@ -20,7 +19,7 @@
   $code ='';
   $color ='';
 	
-if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])  ) {
+/*if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])  ) {
 	
 	$name = $_POST['name'];
 	$code = $_POST['code'];
@@ -30,6 +29,25 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
 	$result = $connexion->query($sqlCourses);
 	header("Refresh:0; url=index.php");
 	
+}*/
+
+if ( !empty($_POST['selectClass']) ) {
+  
+	$selectClass = $_POST['selectClass'];
+	$passwordClass = $_POST['passwordClass'];
+  
+  $sqlCoursePass = "SELECT * FROM classes WHERE ID_CLASS = '$selectClass' AND PASSWORD = '$passwordClass' ";
+  $result = $connexion->query($sqlCoursePass);
+  
+  if($result->num_rows>0){
+    while($row = $result->fetch_assoc()) {
+    $sqlJoinCourse = "INSERT INTO rel_user_classes( ID_USER, ID_CLASS) VALUES ( '$id_user', '$selectClass') ";
+    $result = $connexion->query($sqlJoinCourse);
+    header("Refresh:0; url=classes.php");
+    }
+  }else{
+    $message = 'The password is incorrectly' ;
+  }
 }
 ?>
 
@@ -62,9 +80,6 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
 
   <!-- Page Wrapper -->
   <div id="wrapper">
-	<?php if(!empty($message)): ?>
-      <div class="message"> <?= $message ?> </div>
-    <?php endif;	?>
 	
 	<!-- Page Sidebar -->
 	<?php 
@@ -84,7 +99,9 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
-		
+        <?php if(!empty($message)): ?>
+          <div class="message"> <?= $message ?> </div>
+        <?php endif;	?>
 		    <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Classes</h1>
 			      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal" data-target="#joinCourseModal">
@@ -187,16 +204,16 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
           <h5 class="modal-title" id="exampleModalLabel">Join Up to class</h5>
         </div>
         <div class="modal-body">
-			<form class="user" action="index.php" method="POST" autocomplete="off">
+			<form class="user" action="classes.php" method="POST" autocomplete="off">
 				  <div>
-            <select class="form-control form-control-sm" id="color" name="color">
+            <select class="form-control form-control-sm" id="selectClass" name="selectClass">
 						  <option value="">Select</option>
               <?php 
                $sqlCoursesList = "SELECT * FROM classes";
-               $result = $connexion->query($sqlCoursesView);
+               $result = $connexion->query($sqlCoursesList);
               if($result->num_rows>0){
                while($row = $result->fetch_assoc()) {
-                echo '<option value="US">United States</option>
+                echo '<option value="'.$row[ID_CLASS].'">'.$row['NAME'].'</option>
                       ';
                }
               }
@@ -204,12 +221,12 @@ if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])
 					</select>
           </div> 
           <div>
-            <input type="password" class="form-control form-control-sm" id="passwordCourse" name="passwordCourse" placeholder="Password Course" >
+            <input type="password" class="form-control form-control-sm" id="passwordClass" name="passwordClass" placeholder="Password Course" >
           </div>
 		</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
-		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="index" value="Save Class">					
+		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="joinClasses" value="Join to Class">					
 			</form>
         </div>
       </div>
