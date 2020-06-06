@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2019 a las 14:16:38
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.1.33
+-- Tiempo de generación: 06-06-2020 a las 18:03:58
+-- Versión del servidor: 10.4.11-MariaDB
+-- Versión de PHP: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -138,7 +138,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`ID`, `NAME`, `SURNAME`, `SURNAME2`, `ID_CLASS`) VALUES
-(1, 'Alex', 'Luque', 'Prados', 1);
+(1, 'Alex', 'Luque', 'Prados', 1),
+(2, 'Javi', 'Garcia', 'Sanchez', 1);
 
 -- --------------------------------------------------------
 
@@ -184,7 +185,7 @@ INSERT INTO `users` (`ID_USER`, `USERNAME`, `PASSWORD`, `GROUP_USER_ID`, `EMAIL`
 (1, 'admin', 'admin', 1, 'admin@gmail.com', 'admin', 'admin'),
 (3, 'Juan', 'admin', 1, 'transluque@msn.com', 'Juan', 'Luque'),
 (4, 'natalia', 'natalia', 2, 'nataliagf.97@gmail.com', 'Natalia', 'Fernandez'),
-(5, 'Leo', '123', 2, 'leo.gonzalez@gmail.com', 'Leo', 'Gonzalez');
+(5, 'leo', '123', 2, 'leo.gonzalez@gmail.com', 'Leo', 'Gonzalez');
 
 --
 -- Índices para tablas volcadas
@@ -264,7 +265,7 @@ ALTER TABLE `rel_user_subjects`
 -- AUTO_INCREMENT de la tabla `students`
 --
 ALTER TABLE `students`
-  MODIFY `ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `subjects`

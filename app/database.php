@@ -1,8 +1,8 @@
 <?php
-$server = 'localhost';
-$username = 'root';
-$password = '';
-$database = 'app';
+$server = 'PMYSQL122.dns-servicio.com';
+$username = 'app_admin';
+$password = 'B@lseraPrados13!';
+$database = '7303353_app';
 
 
 try {

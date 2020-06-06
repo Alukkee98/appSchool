@@ -6,10 +6,10 @@ class DB{
     private $password;
     private $charset;
     public function __construct(){
-        $this->host     = 'PMYSQL122.dns-servicio.com';
-        $this->db       = '7303353_app';
-        $this->user     = 'app_admin';
-        $this->password = "B@lseraPrados13!";
+        $this->host     = 'localhost';
+        $this->db       = 'app';
+        $this->user     = 'root';
+        $this->password = "";
         $this->charset  = 'utf8mb4';
     }
     function connect(){
