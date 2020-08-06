@@ -7,12 +7,6 @@
   require 'session.php';
   require 'logoutModal.php';
 
-
-if( isset($_SESSION['id_user']) ){
-  
-}
-
-
 if ( !empty($_POST['password']) ) {
   
   $password = $_POST['password'];
@@ -150,15 +144,10 @@ if ( !empty($_POST['password']) ) {
 		
       <!-- End of Main Content -->
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+     <!-- Page Footer -->
+		<?php 
+			require 'footer.php';
+		?>
 
     </div>
     <!-- End of Content Wrapper -->
@@ -194,7 +183,6 @@ if ( !empty($_POST['password']) ) {
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <input type="submit" class="btn btn-primary" name="changePassword" value="Save" >					
-
         </div>
       </div>
         </form>
