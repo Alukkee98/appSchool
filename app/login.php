@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 
 <?php
- session_start(); // Starting Session
  $message='';
- 
+
+ session_start();
+
  
   require 'database.php';
   
+
+
   if (!empty($_POST['username']) && !empty($_POST['password'])) {
   
   $username = $_POST['username'];
@@ -97,7 +100,7 @@
                       </div>
                     </div>
  
-				        	<input type="submit" class="btn btn-primary btn-user btn-block" id="login" value="Login" >					
+				        	<input type="submit" class="btn btn-primary btn-user btn-block" name="login" value="Login" >					
                     <!--
                     <hr>
                     <a href="index.html" class="btn btn-google btn-user btn-block">

@@ -2,15 +2,8 @@
 	
   session_start();
   
-  require 'database.php';
-
-  if (isset($_SESSION['id_user'])) {
-	  //Cargar datos user
-	$_SESSION['id_user'];
-  }else{
-	 header('Location: login.php');
-  }							
-			
+  require 'includes/db.php';
+  require 'session.php';	
 	
   $message  = '';
 ?>

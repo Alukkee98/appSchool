@@ -4,30 +4,24 @@
   
   require 'database.php';
   require 'chargeGroupUser.php';
+  require 'session.php';
 
-  if (isset($_SESSION['id_user'])) {
-	  //Cargar datos user
-  $_SESSION['id_user'];
+if( isset($_SESSION['id_user']) ){
   
-  $id_user = $_SESSION['id_user'];
-  }else{
-	 header('Location: /app/login.php');
-  }	
-  
-  $password = '';
-  $passwordVerify ='';
+}
 
-	
-if ( !empty($_POST['password']) && !empty($_POST['passwordVerify']) ) {
-  echo 'Im here';
-	$password = $_POST['password'];
+
+if ( !empty($_POST['password']) ) {
+  
+  $password = $_POST['password'];
 	$passwordVerify = $_POST['passwordVerify'];
   
-  $sqlPassword = "UPDATE users SET password = 'test'";
+  $id_user = $_SESSION["id_user"];
+  
+  $sqlPassword = "UPDATE users SET password = '$password' WHERE id_user = '$id_user'";
   $result = $connexion->query($sqlPassword);
     
 }
-				
 ?>
 
 <!DOCTYPE html>
@@ -139,7 +133,7 @@ if ( !empty($_POST['password']) && !empty($_POST['passwordVerify']) ) {
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="text-white" href="#">
+							<a class="text-white" href="edit-profile.php">
 							  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
 								EDIT PROFILE
 							  </div>
@@ -188,20 +182,22 @@ if ( !empty($_POST['password']) && !empty($_POST['passwordVerify']) ) {
           </button>
         </div>
         <div class="modal-body">
-			<form action="index.php" method="POST" autocomplete="off">
+		  	<form action="profile.php" method="POST" autocomplete="off">
 				 <div class="form-modal">
                     <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Password" >
                   </div>
 				 <div class="form-modal">
                     <input type="password" class="form-control form-control-sm" id="passwordVerify" name="passwordVerify" placeholder="Repeat Password">
                   </div> 
-			</form>
+			
 		</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="profile.php">Save</a>
+          <input type="submit" class="btn btn-primary" name="changePassword" value="Save" >					
+
         </div>
       </div>
+        </form>
     </div>
   </div>
   
