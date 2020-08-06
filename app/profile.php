@@ -6,6 +6,8 @@
   require 'chargeGroupUser.php';
   require 'session.php';
   require 'logoutModal.php';
+  require 'confirm.php';
+
 
 if ( !empty($_POST['password']) ) {
   
@@ -14,7 +16,12 @@ if ( !empty($_POST['password']) ) {
     
   $sqlPassword = "UPDATE users SET password = '$password' WHERE id_user = '$id_user' ";
   $result = $connexion->query($sqlPassword);
-    
+  ?>
+  <script type="text/javascript">
+    alerta();
+  </script>
+  
+<?php
 }
 ?>
 
