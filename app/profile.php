@@ -15,9 +15,7 @@ if ( !empty($_POST['password']) ) {
   
   $password = $_POST['password'];
 	$passwordVerify = $_POST['passwordVerify'];
-  
-  $id_user = $_SESSION["id_user"];
-  
+    
   $sqlPassword = "UPDATE users SET password = '$password' WHERE id_user = '$id_user'";
   $result = $connexion->query($sqlPassword);
     
