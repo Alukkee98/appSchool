@@ -5,6 +5,8 @@
   require 'database.php';
   require 'chargeGroupUser.php';
   require 'session.php';
+  require 'logoutModal.php';
+
 
 if( isset($_SESSION['id_user']) ){
   
@@ -16,7 +18,7 @@ if ( !empty($_POST['password']) ) {
   $password = $_POST['password'];
 	$passwordVerify = $_POST['passwordVerify'];
     
-  $sqlPassword = "UPDATE users SET password = '$password' WHERE id_user = '$id_user'";
+  $sqlPassword = "UPDATE users SET password = '$password' WHERE id_user = '$id_user' ";
   $result = $connexion->query($sqlPassword);
     
 }
@@ -71,7 +73,7 @@ if ( !empty($_POST['password']) ) {
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
+          <!-- Page Heading 
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Profile</h1>
           </div>
@@ -112,7 +114,7 @@ if ( !empty($_POST['password']) ) {
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#passwordModal">
+							<a class="text-white" href="#" data-toggle="modal" data-target="#passwordModal">
 							  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
 								CHANGE PASSWORD
 							  </div>
@@ -199,24 +201,7 @@ if ( !empty($_POST['password']) ) {
     </div>
   </div>
   
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="logout.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
