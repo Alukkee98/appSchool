@@ -1,9 +1,7 @@
 <?php
-	
   session_start();
   
-  require 'includes/db.php';
-  require 'session.php';	
+  require 'includes/database.php';
 	
   $message  = '';
 ?>

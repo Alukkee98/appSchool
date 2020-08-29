@@ -2,7 +2,7 @@
 	
   session_start();
   
-  require 'database.php';
+  require 'includes/db.php';
 
   if (isset($_SESSION['id_user'])) {
 	  //Cargar datos user
@@ -91,33 +91,23 @@
           <div class="row">
 			<div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Students</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Administration Group User</h6>
             </div>
             <div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-					<thead>
-						<tr>
-							<th>Id</th>
-							<th>Name</th>
-						</tr>
-					</thead>
-				<!-- Admin Classes -->
-				<?php
-					$sqlGroupUserView = "SELECT * FROM group_user";
-					$result = $connexion->query($sqlGroupUserView);
-					if($result->num_rows>0){
-						while($row = $result->fetch_assoc()) {
-							echo '
-							<td>
-								'.$row['DESCRIPCION'].'
-							</td>';
-							
-						}
-					}
-				?>
-
-				</table>
+          <select class="form-control form-control-sm" id="selectClass" name="selectClass"> 
+						  <option value="">Select</option>
+              <?php 
+               $sqlGroupUserView = "SELECT * FROM group_user";
+               $result = $connexion->query($sqlGroupUserView);
+              if($result->num_rows>0){
+               while($row = $result->fetch_assoc()) {
+                echo '<option value="'.$row[GROUP_USER_ID].'">'.$row['DESCRIPCION'].'</option>
+                      ';
+               }
+              }
+              ?>
+					</select>
 			</div>
 		</div>
         </div>

@@ -2,7 +2,7 @@
 	
   session_start();
   
-  require 'database.php';
+  require 'includes/database.php';
 
   if (isset($_SESSION['id_user'])) {
 	  //Cargar datos user

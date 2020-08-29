@@ -2,7 +2,7 @@
 	
   session_start();
   
-  require 'database.php';
+  require 'includes/db.php';
 
   if (isset($_SESSION['id_user'])) {
 	  //Cargar datos user
@@ -77,7 +77,7 @@
             <!-- Earnings (Monthly) Card Example -->
 			<?php
 				$sqlStudentsView = "SELECT * FROM STUDENTS";
-				$result = $connexion->query($sqlStudentsView);
+        $result = $connexion->query($sqlStudentsView);
 				if($result->num_rows>0){
 					while($row = $result->fetch_assoc()) {
 						echo '

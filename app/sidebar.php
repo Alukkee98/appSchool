@@ -7,7 +7,7 @@
           <i class="fas fa-chalkboard-teacher"></i>
           <!--img src="img/logo-web.png" width="90%"-->
         </div>
-        <div class="sidebar-brand-text mx-3">Mare de Deu dels Angels</div>
+        <div class="sidebar-brand-text mx-3">ADMIN SCHOOL</div>
         <div class="sidebar-brand-text"><sup>v1.0</sup></div>
       </a>
 

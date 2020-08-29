@@ -1,7 +1,7 @@
 
 <?php
 
-  require 'database.php';
+require 'includes/db.php';
 
   $message  = '';
   $username = '';

@@ -5,10 +5,10 @@
  *
  */
 
-$host       = "PMYSQL122.dns-servicio.com";
-$username   = "app_admin";
-$password   = "B@lseraPrados13!";
-$dbname     = "7303353_app";
+$host       = "localhost";
+$username   = "root";
+$password   = "";
+$dbname     = "app";
 $dsn        = "mysql:host=$host;dbname=$dbname";
 $options    = array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION

@@ -4,39 +4,45 @@
  $message='';
 
  session_start();
-
- 
-  require 'database.php';
   
-
-
+ require 'includes/database.php';
+  
   if (!empty($_POST['username']) && !empty($_POST['password'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+
+    $records = $conn->prepare('SELECT ID_USER, USERNAME FROM users WHERE username = :username');
+    $records->bindParam(':username', $username);
+
+
+    $records->execute();
+    $results = $records->fetch(PDO::FETCH_ASSOC);
+    
+    $total = $records->rowCount();
+
+    if ($total > 0) {
+      $_SESSION['username'] = $_POST['username'];
+      if($password == $row['PASSWORD']) {
+        $_SESSION['id_user']  = $row['ID_USER'];
+        $_SESSION['email']    = $row['EMAIL'];
+        $_SESSION['group_user_id'] = $row['GROUP_USER_ID'];
+        $_SESSION['name']     = $row['NAME'];
+        $_SESSION['lastname'] = $row['LASTNAME'];
   
-  $username = $_POST['username'];
-  $password = $_POST['password'];
+        header('Location: index.php');
+      }else{
+        $message = '$password';
+
+      }
+    } else {
+  
+      $message = 'Sorry, those password do not match with this user';
+  
+    }
 
 
-	$sql = "SELECT * FROM users WHERE username = '$username' ";
-	$result = mysqli_query($connexion, $sql);
-	if($row = mysqli_fetch_array($result)){
 	
-		if($password == $row['PASSWORD']) {
-			$_SESSION['username'] = $_POST['username'];
-			$_SESSION['id_user'] = $row['ID_USER'];
-			$_SESSION['email'] = $row['EMAIL'];
-			$_SESSION['group_user_id'] = $row['GROUP_USER_ID'];
-			$_SESSION['name'] = $row['NAME'];
-			$_SESSION['lastname'] = $row['LASTNAME'];
-			
-		  header('Location: index.php');
-		}
-		else{
-			 $message = 'Sorry, those password do not match with this user';
-		}
-	
-  }else{
-	 $message = 'Sorry, those credentials do not match';
-  }
 }
 
 ?>
