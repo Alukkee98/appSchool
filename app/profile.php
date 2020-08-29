@@ -2,9 +2,9 @@
 	
   session_start();
   
-  require 'database.php';
+  require 'includes/database.php';
   require 'chargeGroupUser.php';
-  require 'session.php';
+ // require 'session.php';
   require 'logoutModal.php';
   require 'confirm.php';
 

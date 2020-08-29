@@ -9,38 +9,45 @@
   
   if (!empty($_POST['username']) && !empty($_POST['password'])) {
     $username = $_POST['username'];
-    $password = $_POST['password'];
 
-
-    $records = $conn->prepare('SELECT ID_USER, USERNAME FROM users WHERE username = :username');
+    $records = $conn->prepare('SELECT * FROM users WHERE username = :username');
     $records->bindParam(':username', $username);
 
-
     $records->execute();
-    $results = $records->fetch(PDO::FETCH_ASSOC);
+    $results = $records->fetchAll();
+
+    //ARRAY
+   /* while( $results = $records->fetch(PDO::FETCH_ASSOC) ){
+      $message = print_r($results);
+    }
+    */  
     
     $total = $records->rowCount();
 
     if ($total > 0) {
-      $_SESSION['username'] = $_POST['username'];
-      if($password == $row['PASSWORD']) {
+      //RECORRER ARRAY
+    foreach($results as $row){
+      if($_POST['password'] == $row['PASSWORD']) {
+        
+        $_SESSION['username'] = $_POST['username'];
+
         $_SESSION['id_user']  = $row['ID_USER'];
         $_SESSION['email']    = $row['EMAIL'];
         $_SESSION['group_user_id'] = $row['GROUP_USER_ID'];
         $_SESSION['name']     = $row['NAME'];
         $_SESSION['lastname'] = $row['LASTNAME'];
-  
+        
         header('Location: index.php');
+        $message = $id_user;
+
       }else{
-        $message = '$password';
-
+         $message = 'Sorry, those password do not match with this user --> ' . $row['USERNAME'] ;
       }
-    } else {
-  
-      $message = 'Sorry, those password do not match with this user';
-  
     }
-
+  }else {
+  
+    $message = 'Sorry, those credentials do not match';
+     }
 
 	
 }
