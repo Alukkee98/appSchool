@@ -62,15 +62,14 @@
 
 				<!-- CLASSES -->
 				<div class="col-xl-3 col-md-6 mb-4">
+				<a class="text-white" href="classes.php">
 				  <div class="card shadow bg-primary text-white h-100 py-2">
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="text-white" href="classes.php">
 							  <div class="text-xs font-weight-bold text-uppercase mb-2">
 								CLASSES
 							  </div>
-							</a>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
@@ -78,19 +77,19 @@
 					   </div>
 					</div>
 				 </div>
+				</a>
 				</div>
 				
 				<!-- SUBJECTS -->
 				<div class="col-xl-3 col-md-6 mb-4">
+				<a class="text-white" href="subjects.php">
 				  <div class="card shadow bg-warning text-white h-100 py-2">
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="text-white" href="subjects.php">
 							  <div class="text-xs font-weight-bold text-uppercase mb-2">
 								SUBJECTS
 							  </div>
-							</a>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-book-open fa-2x text-gray-300"></i>
@@ -98,19 +97,19 @@
 					   </div>
 					</div>
 				 </div>
+				 </a>
 				</div>
 				
 				<!-- STUDENTS -->
 				<div class="col-xl-3 col-md-6 mb-4">
+				<a class="text-white" href="students.php">
 				  <div class="card shadow bg-success text-white h-100 py-2">
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="text-white" href="students.php">
 							  <div class="text-xs font-weight-bold text-uppercase mb-2">
 								STUDENTS
 							  </div>
-							</a>
 						</div>
 						<div class="col-auto">
 							<i class="fas fa-user-graduate fa-2x text-gray-300"></i>
@@ -118,11 +117,36 @@
 					   </div>
 					</div>
 				 </div>
-				</div>		          
-			</div>
+				</div>	
+				</a>	          
+				</div>
+
+				<!-- RUBRICAS -->
+				<div class="col-xl-3 col-md-6 mb-4">
+				<a class="text-white" href="students.php">
+				  <div class="card shadow bg-success text-white h-100 py-2">
+					<div class="card-body">
+					  <div class="row no-gutters align-items-center">
+						<div class="col mr-2">
+							  <div class="text-xs font-weight-bold text-uppercase mb-2">
+							  RUBRICAS
+							  </div>
+						</div>
+						<div class="col-auto">
+							<i class="fas fa-expand fa-2x text-gray-300"></i>
+						</div>
+					   </div>
+					</div>
+				 </div>
+				</div>	
+				</a>	          
+				</div>
+
+				
+			
+
         <!-- /.container-fluid -->
 
-      </div>
       <!-- End of Main Content -->
 
        <!-- Page Footer -->

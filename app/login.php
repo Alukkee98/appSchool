@@ -8,46 +8,43 @@
  require 'includes/database.php';
   
   if (!empty($_POST['username']) && !empty($_POST['password'])) {
+   
     $username = $_POST['username'];
+    $sql = $conn->prepare('SELECT * FROM users WHERE username = :username');
+    $sql->bindParam(':username', $username);
 
-    $records = $conn->prepare('SELECT * FROM users WHERE username = :username');
-    $records->bindParam(':username', $username);
+    $sql->execute();
+    $results = $sql->fetchAll();
 
-    $records->execute();
-    $results = $records->fetchAll();
-
-    //ARRAY
-   /* while( $results = $records->fetch(PDO::FETCH_ASSOC) ){
-      $message = print_r($results);
-    }
+    //Array
+   /* while( $results = $sql->fetch(PDO:: FETCH_ASSOC) ){
+                    $message = print_r($results);
+      }
     */  
     
-    $total = $records->rowCount();
-
-    if ($total > 0) {
-      //RECORRER ARRAY
-    foreach($results as $row){
-      if($_POST['password'] == $row['PASSWORD']) {
+    //Numero de registros de la query
+    $totalRow = $sql->rowCount();
+    
+    if ($totalRow > 0) {
+      //Correr el array
+      foreach($results as $row){
+        if($_POST['password'] == $row['PASSWORD']) {
         
-        $_SESSION['username'] = $_POST['username'];
-
-        $_SESSION['id_user']  = $row['ID_USER'];
-        $_SESSION['email']    = $row['EMAIL'];
-        $_SESSION['group_user_id'] = $row['GROUP_USER_ID'];
-        $_SESSION['name']     = $row['NAME'];
-        $_SESSION['lastname'] = $row['LASTNAME'];
+          $_SESSION['username'] = $_POST['username'];
+          $_SESSION['id_user']  = $row['ID_USER'];
+          $_SESSION['email']    = $row['EMAIL'];
+          $_SESSION['group_user_id'] = $row['GROUP_USER_ID'];
+          $_SESSION['name']     = $row['NAME'];
+          $_SESSION['lastname'] = $row['LASTNAME'];
         
-        header('Location: index.php');
-        $message = $id_user;
-
-      }else{
-         $message = 'Sorry, those password do not match with this user --> ' . $row['USERNAME'] ;
-      }
-    }
+          header('Location: index.php');
+        }else{
+          $message = 'Sorry, those password do not match with this user --> ' . $row['USERNAME'] ;
+        }
+      }       
   }else {
-  
-    $message = 'Sorry, those credentials do not match';
-     }
+     $message = 'Sorry, those credentials do not match';
+  }
 
 	
 }

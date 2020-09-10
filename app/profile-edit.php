@@ -1,41 +1,52 @@
 <?php
 	
   session_start();
-  
+
   require 'includes/database.php';
   require 'chargeGroupUser.php';
   require 'logoutModal.php';
   require 'session.php';	
+  
 
 
-if ( !empty($_POST['password']) ) {
-  try{
-    $password = $_POST['password'];
-    $passwordVerify = $_POST['passwordVerify'];
-    if($password == $passwordVerify){  
-      $consulta = "UPDATE users SET password = :password WHERE id_user = :id_user " ;
-      $sqlPassword = $conn->prepare($consulta);
-      $sqlPassword->bindParam(':id_user', $id_user,PDO::PARAM_INT);
-      $sqlPassword->bindParam(':password', $password,  PDO::PARAM_STR);
+	if (!empty(isset($_POST['profileEdit']))) {
+    try {
+      $consulta = "UPDATE users SET name = :name, 
+                                    lastname = :lastname,
+                                    username = :username,
+                                    email = :email
+                   WHERE id_user = :id_user " ;
+      $sqlProfile = $conn->prepare($consulta);
+      $sqlProfile->bindParam(':id_user', $id_user,PDO::PARAM_INT);
+      $sqlProfile->bindParam(':name', $_POST['name'],  PDO::PARAM_STR);
+      $sqlProfile->bindParam(':lastname', $_POST['lastname'],  PDO::PARAM_STR);
+      $sqlProfile->bindParam(':username', $_POST['username'],  PDO::PARAM_STR);
+      $sqlProfile->bindParam(':email', $_POST['email'],  PDO::PARAM_STR);
 
-      $sqlPassword->execute();
-      if($sqlPassword->rowCount() > 0){ 
-        $count = $sqlPassword -> rowCount();
-        echo "<div class='content alert alert-primary' > La password ha sido actualizada </div>";
-      }
-      else{
+      $sqlProfile->execute();
+      if($sqlProfile->rowCount() > 0){
+          $_SESSION["name"] = $_POST['name'];
+          $_SESSION["lastname"] = $_POST['lastname'];
+          $_SESSION["username"] = $_POST['username'];
+          $_SESSION["email"] = $_POST['email'];
+
+        
+        //echo "<div class='content alert alert-primary'> Datos del usuario actualizados </div>";        
+        header("Refresh:0; url=profile.php");
+
+      }else{
         echo "<div class='content alert alert-danger'> No se pudo actulizar el registro el usuario ". $username ." no existe  </div>";
-        print_r($sqlPassword->errorInfo()); 
+        print_r($sqlProfile->errorInfo()); 
       }
-    }else{
-      echo "<div class='content alert alert-danger'> No se pudo actulizar el registro, las contraseñas no coinciden </div>";
-    }
-  }catch(PDOException $error) {
-    echo $sqlPassword . "<br>" . $error->getMessage();
-  }
-}
-  ?>
 
+      
+
+    } catch(PDOException $error) {
+        echo $sqlProfile . "<br>" . $error->getMessage();
+    }
+  }
+				
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +59,7 @@ if ( !empty($_POST['password']) ) {
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>AdmSchool - Profile</title>
+  <title>AdmSchool - Edit Profile</title>
 
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -86,9 +97,9 @@ if ( !empty($_POST['password']) ) {
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading 
+          <!-- Page Heading
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+            <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
           </div>
           <!-- Content Row -->
 
@@ -98,7 +109,7 @@ if ( !empty($_POST['password']) ) {
 			<div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-				<h6 class="m-0 font-weight-bold text-primary">Profile Detail</h6>
+				      <h6 class="m-0 font-weight-bold text-primary">Profile Detail</h6>
             </div>
 			
             <!-- Card Body -->
@@ -109,14 +120,31 @@ if ( !empty($_POST['password']) ) {
 								<img src="https://image.flaticon.com/icons/svg/149/149071.svg" class="bg-profile-image">
 							</div>
 							<div class="col-lg-6">
-								   <h3><?php echo $_SESSION["name"] . ' ' . $_SESSION["lastname"];?></h3>
-								
-                	<dd><strong>Username</strong> </dd> <dl><?php echo $_SESSION["username"];?> </dl>  
-									<dd><strong>Email address</strong> </dd> <dl><?php echo $_SESSION["email"];?> </dl>   	
-									<dd><strong>Role</strong> </dd> <dl><?php echo $_SESSION["group_user_name"]?> </dl>
-									<dd><strong>User ID</strong> </dd> <dl><?php echo $_SESSION["id_user"]?> </dl>
+                  <form method="POST" autocomplete="off">
+									
+                   <dd><strong>Name</strong> </dd> 
+									<dl>
+                      <input type="text" class="form-control form-control-user" id="name" name="name" value="<?php echo $_SESSION["name"];?> "   >
+          				</dl>
+									
+									<dd><strong>Lastname</strong> </dd> 
+									<dl>
+										<input type="text" class="form-control form-control-user" id="lastname" name="lastname" value="<?php echo $_SESSION["lastname"];?> "  >
+									</dl>
+                  <dd><strong>Username</strong> </dd>
+									<dl>          
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">@</div>
+                          <input type="text" class="form-control form-control-user" id="username" name="username" value="<?php echo $_SESSION["username"];?> " >
+                    </div>
 
-							</div>
+									</dl>
+									
+									<dd><strong>Email address</strong> </dd> 
+									<dl>
+										<input type="text" class="form-control form-control-user" id="email" name="email" value="<?php echo $_SESSION["email"];?> " >
+									</dl>                
+              </div>
 						</div>
 					  </div>
 					</div>
@@ -128,14 +156,13 @@ if ( !empty($_POST['password']) ) {
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="text-white" href="#" data-toggle="modal" data-target="#passwordModal">
-							  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
-								CHANGE PASSWORD
-							  </div>
-							</a>
+                  <input class="btn text-xs font-weight-bold text-primary text-uppercase mb-2" type="submit" name="profileEdit" value="Save">              
+              </form>
 						</div>
 						<div class="col-auto">
-							<i class="fas fa-key fa-2x text-gray-300"></i>
+							<span style="color: #80F115;">
+								<i class="fas fa-check fa-2x"></i>
+							</span>
 						</div>
 					   </div>
 					</div>
@@ -147,14 +174,16 @@ if ( !empty($_POST['password']) ) {
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
-							<a class="text-white" href="profile-edit.php">
+							<a class="text-white" href="profile.php">
 							  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
-								EDIT PROFILE
+								Back
 							  </div>
 							</a>
 						</div>
 						<div class="col-auto">
-							<i class="fas fa-user-edit fa-2x text-gray-300"></i>
+							<span style="color: #C12D2D;">
+							<i class="fas fa-undo fa-2x"></i>
+							</span>
 						</div>
 					   </div>
 					</div>
@@ -164,10 +193,15 @@ if ( !empty($_POST['password']) ) {
 		
       <!-- End of Main Content -->
 
-     <!-- Page Footer -->
-		<?php 
-			require 'footer.php';
-		?>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2019</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -180,36 +214,8 @@ if ( !empty($_POST['password']) ) {
     <i class="fas fa-angle-up"></i>
   </a>
 	
-  <!-- Password Modal-->
-  <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Do you want change your password?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-		  	<form action="profile.php" method="POST" autocomplete="off">
-				 <div class="form-modal">
-                    <input type="password" class="form-control form-control-sm" id="password" name="password" placeholder="Password" >
-                  </div>
-				 <div class="form-modal">
-                    <input type="password" class="form-control form-control-sm" id="passwordVerify" name="passwordVerify" placeholder="Repeat Password">
-                  </div> 
-			
-		</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <input type="submit" class="btn btn-primary" name="changePassword" value="Save" >					
-        </div>
-      </div>
-        </form>
-    </div>
-  </div>
   
-
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
@@ -231,3 +237,4 @@ if ( !empty($_POST['password']) ) {
 </body>
 
 </html>
+	
