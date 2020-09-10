@@ -10937,8 +10937,7 @@ background-position:center;
 background-size:cover
  } 
  
-.bg-profile-image{ 
-height: 50%;
+ .bg-profile-image{ 
 width: 50%;
 margin:5% 20%;
 } 
@@ -10950,9 +10949,15 @@ line-height:1.5rem
  
  form.user .form-control-user{ 
 font-size:.8rem; 
-border-radius:10rem; 
+border-radius:5rem; 
 padding:1.5rem 1rem
  } 
+
+.form-control-color{ 
+    margin: 20px 0 0 0;
+    width: 15%;
+    text-align: center;
+} 
  
  form.user .btn-user{ 
 font-size:.8rem; 
