@@ -2,55 +2,57 @@
 	
   session_start();
   
-  require 'database.php';
+  require 'includes/database.php';
+  require 'session.php';
 
-  if (isset($_SESSION['id_user'])) {
-	  //Cargar datos user
-	  $_SESSION['id_user'];
-	  $id_user = $_SESSION['id_user'];
-  }else{
-	  header('Location: login.php');
-  }							
-			
-	
+
   $message  = '';
   
-  $name = '';
-  $code ='';
-  $color ='';
-	
-/*if ( !empty($_POST['name']) && !empty($_POST['code']) && !empty($_POST['color'])  ) {
-	
-	$name = $_POST['name'];
-	$code = $_POST['code'];
-	$color = $_POST['color'];
-	
-	$sqlCourses = "INSERT INTO classes( NAME, COD_CLASS, COLOR) VALUES ('$name' , '$code', '$color') ";
-	$result = $connexion->query($sqlCourses);
-	header("Refresh:0; url=index.php");
-	
-}*/
 
-if ( !empty($_POST['selectClass']) ) {
-  
-	$selectClass = $_POST['selectClass'];
-	$passwordClass = $_POST['passwordClass'];
-  
-  $sqlCoursePass = "SELECT * FROM classes WHERE ID_CLASS = '$selectClass' AND PASSWORD = '$passwordClass' ";
-  $result = $connexion->query($sqlCoursePass);
-  
-  if($result->num_rows>0){
-    while($row = $result->fetch_assoc()) {
-    $sqlJoinCourse = "INSERT INTO rel_user_classes( ID_USER, ID_CLASS) VALUES ( '$id_user', '$selectClass') ";
-    $result = $connexion->query($sqlJoinCourse);
-    header("Refresh:0; url=classes.php");
+	if (!empty(isset($_POST['createClass']))) {
+    try{   
+      $consulta = "INSERT INTO classes( CLASS_NAME, COD_CLASS, COLOR, ID_USER) VALUES (:class_name , :class_cod, :class_color , :id_user) ";
+      $sqlcreateCourses = $conn->prepare($consulta);
+      $sqlcreateCourses->bindParam(':class_name', $_POST['class_name'] ,PDO::PARAM_STR);
+      $sqlcreateCourses->bindParam(':class_cod', $_POST['class_cod'] ,PDO::PARAM_STR);      
+      $sqlcreateCourses->bindParam(':class_color', $_POST['class_color'] ,PDO::PARAM_STR);
+      $sqlcreateCourses->bindParam(':id_user', $id_user ,PDO::PARAM_INT);
+
+      $sqlcreateCourses->execute();
+      if($sqlcreateCourses->rowCount() > 0){ 
+        echo "<div class='content alert alert-primary' >Class created</div>";
+        /*
+        $sqlRelacioClassTeacherConsulta = "SELECT MAX(ID_CLASS) AS id_class FROM classes ";
+        $sqlRelacioClassTeacher = $conn->prepare($sqlRelacioClassTeacherConsulta);
+        $sqlRelacioClassTeacher->execute();
+        $results = $sqlRelacioClassTeacher->fetchAll();
+        
+        echo "<div class='content alert alert-primary' >La clase ha sido creada es idenificada</div>";
+        */
+        /*if($sqlRelacioClassTeacher->rowCount() > 0){
+          foreach($results as $row){
+              $id_class = $row['id_class'];
+             // echo "<div class='content alert alert-danger' > CLASE". $row['id_class'] ."   </div>";
+
+              $sqlcreateCoursesConsulta = "INSERT INTO rel_user_classes( ID_USER, ID_CLASS ) VALUES (:id_user , :id_class) ";
+              $sqlcreateCourses = $conn->prepare($sqlcreateCoursesConsulta);
+              $sqlcreateCourses->bindParam(':id_user', $id_user ,PDO::PARAM_INT);
+              $sqlcreateCourses->bindParam(':id_class', $id_class ,PDO::PARAM_INT);
+              $sqlcreateCourses->execute();
+             //echo "<div class='content alert alert-primary' >La clase ha sido relacionada con el profesor</div>";
+
+          }
+          
+      }*/
+      
     }
-  }else{
-    $message = 'The password is incorrectly' ;
+  }catch(PDOException $error) {
+    echo $sqlcreateCourses . "<br>" . $error->getMessage();
   }
+    
 }
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,9 +106,9 @@ if ( !empty($_POST['selectClass']) ) {
         <?php endif;	?>
 		    <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Classes</h1>
-			      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal" data-target="#joinCourseModal">
+			      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal" data-target="#createCourseModal">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-				      Join up Class
+				      Create a Class
             </a>
         </div>
 		  
@@ -117,31 +119,42 @@ if ( !empty($_POST['selectClass']) ) {
             <!-- Classes -->
 			<?php
 			if($_SESSION['group_user_id'] != 1){
-				$sqlCoursesView = "SELECT * FROM classes WHERE id_class in ( SELECT id_class FROM rel_user_classes WHERE id_user = '$id_user' )";
+				$consulta = "SELECT * FROM classes WHERE id_class in ( 
+                            SELECT id_class FROM subjects 
+                            where id_subject in (
+                                        select id_subject from rel_user_subjects where id_user = :id_user
+                                                )     
+                            ) or id_user  in (:id_user)";
 			}else{
-				$sqlCoursesView = "SELECT * FROM classes";
-			}
-				$result = $connexion->query($sqlCoursesView);
-				if($result->num_rows>0){
-					while($row = $result->fetch_assoc()) {
-						echo '
-						<div class="col-xl-3 col-md-6 mb-4">
-						  <div class="card shadow h-100 py-2" style="border-left:.25rem solid #'.$row['COLOR'].' !important">
+				$consulta = "SELECT * FROM classes";
+      }
+      
+      $sqlCoursesView = $conn->prepare($consulta);
+      $sqlCoursesView->bindParam(':id_user', $id_user,PDO::PARAM_INT);
+      
+      $sqlCoursesView->execute();
+      $results = $sqlCoursesView->fetchAll();
+
+      if($sqlCoursesView->rowCount() > 0){
+        foreach($results as $row){
+          echo '
+            <div class="col-xl-3 col-md-6 mb-4">
+            <a href="class-detail.php?ID_CLASS='.$row['ID_CLASS'].'">
+						  <div class="card shadow h-100 py-2" style="border-left:.25rem solid '.$row['COLOR'].' !important">
 							<div class="card-body">
 							  <div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-                  <a href="class-detail.php?ID_CLASS='.$row['ID_CLASS'].'">
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
-										'.$row['NAME'].'
+										'.$row['CLASS_NAME'].'
 									  </div>
-									</a>
 								</div>
 								<div class="col-auto">
 								  <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
 								</div>
 							  </div>
 							</div>
-						  </div>
+              </div>
+              </a>
 						</div>';
 						
 					}
@@ -157,13 +170,10 @@ if ( !empty($_POST['selectClass']) ) {
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+       <!-- Page Footer -->
+		<?php 
+			require 'footer.php';
+		?>
       <!-- End of Footer -->
 
     </div>
@@ -196,78 +206,44 @@ if ( !empty($_POST['selectClass']) ) {
     </div>
   </div>
   
-   <!-- Join Up to Course Modal-->
-  <div class="modal fade" id="joinCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <!-- Create a Course Modal-->
+  <div class="modal fade" id="createCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Join Up to class</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Create a class</h5>
         </div>
         <div class="modal-body">
-			<form class="user" action="classes.php" method="POST" autocomplete="off">
-				  <div>
-            <select class="form-control form-control-sm" id="selectClass" name="selectClass">
-						  <option value="">Select</option>
-              <?php 
-               $sqlCoursesList = "SELECT * FROM classes";
-               $result = $connexion->query($sqlCoursesList);
-              if($result->num_rows>0){
-               while($row = $result->fetch_assoc()) {
-                echo '<option value="'.$row[ID_CLASS].'">'.$row['NAME'].'</option>
-                      ';
-               }
-              }
-              ?>
-					</select>
-          </div> 
-          <div>
-            <input type="password" class="form-control form-control-sm" id="passwordClass" name="passwordClass" placeholder="Password Course" >
-          </div>
-		</div>
+        <form method="POST" autocomplete="off">
+                 <dd><strong>Name</strong> </dd> 
+                 <dl>
+                     <input type="text" class="form-control form-control-user" id="class_name" name="class_name" placeholder="Primero A"   >
+                 </dl>
+                 
+                 <dd><strong>Code Class</strong> </dd> 
+                 <dl>
+                 <input type="text" class="form-control form-control-user" id="class_cod" name="class_cod" placeholder="1A"   >
+                 </dl>
+
+                 <dd><strong>Password</strong> </dd> 
+                 <dl>
+                   <input type="password" class="form-control form-control-user" id="class_password" name="class_password" value="12345678910" >
+                 </dl> 
+
+                 <dd><strong>Color</strong> </dd> 
+                 <dl> 
+                    <input type="color" class="form-control-color" id="class_color" name="class_color" />
+                 </dl>
+		    </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
-		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="joinClasses" value="Join to Class">					
+          <input type="submit" class="btn btn-primary" name="createClass" value="Create">					
 			</form>
         </div>
       </div>
     </div>
   </div>
 
-    <!-- Course Modal-->
-    <div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">New Class</h5>
-        </div>
-        <div class="modal-body">
-			<form class="user" action="index.php" method="POST" autocomplete="off">
-				 <div>
-                    <input type="text" class="form-control form-control-sm" id="name" name="name" placeholder="Primero A" >
-                  </div>
-                  <div>
-                    <input type="text" class="form-control form-control-sm" id="code" name="code" placeholder="1A">
-                  </div> 
-				  <div>
-					<select class="form-control form-control-sm" id="color" name="color">
-						<option value="">Select</option>
-						<option value="US">United States</option>
-						<option value="UK">United Kingdom</option>
-						<option value="France">France</option>
-						<option value="Mexico">Mexico</option>
-						<option value="Russia">Russia</option>
-						<option value="Japan">Japan</option>
-					</select>
-          </div> 
-		</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
-		  	<input type="submit" class="btn btn-primary btn-user btn-block" id="index" value="Save Class">					
-			</form>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
