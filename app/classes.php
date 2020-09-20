@@ -225,11 +225,12 @@
                  <input type="text" class="form-control form-control-user" id="class_cod" name="class_cod" placeholder="1A"   >
                  </dl>
 
+                 <!--ALP 
                  <dd><strong>Password</strong> </dd> 
                  <dl>
                    <input type="password" class="form-control form-control-user" id="class_password" name="class_password" value="12345678910" >
                  </dl> 
-
+                 -->
                  <dd><strong>Color</strong> </dd> 
                  <dl> 
                     <input type="color" class="form-control-color" id="class_color" name="class_color" />

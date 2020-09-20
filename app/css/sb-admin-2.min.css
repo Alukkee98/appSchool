@@ -2519,7 +2519,31 @@ border-color:#ca2819
  
  .btn-danger:not(:disabled):not(.disabled).active:focus,.btn-danger:not(:disabled):not(.disabled):active:focus,.show>.btn-danger.dropdown-toggle:focus{ 
 box-shadow:0 0 0 .2rem rgba(235,101,88,.5)
- } 
+ }
+ 
+.btn-edit{ 
+    color:#fff; 
+    background-color:#2653d4; 
+    border-color:#2653d4
+} 
+ 
+.btn-edit:hover{ 
+    color:#fff; 
+    background-color:#2d4373; 
+    border-color:#  ;
+} 
+     
+ .btn-edit.disabled,.btn-edit:disabled{ 
+    color:#fff; 
+    background-color:#2653d4; 
+    border-color:#2653d4
+} 
+     
+ .btn-edit:not(:disabled):not(.disabled).active,.btn-edit:not(:disabled):not(.disabled):active,.show>.btn-edit.dropdown-toggle{ 
+    color:#fff; 
+    background-color:#2653d4; 
+    border-color:#2653d4
+}   
  
  .btn-light{ 
 color:#3a3b45; 

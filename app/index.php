@@ -63,7 +63,7 @@
 				<!-- CLASSES -->
 				<div class="col-xl-3 col-md-6 mb-4">
 				<a class="text-white" href="classes.php">
-				  <div class="card shadow bg-primary text-white h-100 py-2">
+				  <div class="card shadow bg-info text-white h-100 py-2">
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
@@ -117,19 +117,20 @@
 					   </div>
 					</div>
 				 </div>
+				 </a>	          
 				</div>	
-				</a>	          
-				</div>
 
 				<!-- RUBRICAS -->
 				<div class="col-xl-3 col-md-6 mb-4">
-				<a class="text-white" href="students.php">
-				  <div class="card shadow bg-success text-white h-100 py-2">
+				<a class="text-white" href="index.php">
+				  <div class="card shadow bg-danger text-white h-100 py-2">
 					<div class="card-body">
 					  <div class="row no-gutters align-items-center">
 						<div class="col mr-2">
 							  <div class="text-xs font-weight-bold text-uppercase mb-2">
 							  RUBRICAS
+							  -
+							  NO DISPONIBLE
 							  </div>
 						</div>
 						<div class="col-auto">
@@ -141,6 +142,9 @@
 				</div>	
 				</a>	          
 				</div>
+		
+		</div>
+
 
 				
 			

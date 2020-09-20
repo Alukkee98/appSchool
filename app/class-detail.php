@@ -93,7 +93,7 @@
                     <tr>
                       <th>Id</th>
                       <th>Name</th>
-                      <th></th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   
@@ -112,9 +112,17 @@
                       foreach($results as $row){
                       echo '
                       <tr>
-                        <td>'.$cont.'</td>
+                      <td align="center" >'.$cont.'</td>
                         <td>'.$row['SURNAME'].'  '.$row['SURNAME2'].', '.$row['NAME'].'</td>
-                        <td></td>
+                        <td align="center" >
+                          <a href="#" class="btn-edit btn-circle btn-sm">
+                              <i class="fas fa-edit"></i>
+                          </a>
+                          &nbsp; &nbsp; &nbsp;
+                          <a href="#" class="btn-danger btn-circle btn-sm">
+                              <i class="fas fa-trash"></i>
+                          </a>
+                        </td>
                       </tr>
                       ';
                       $cont++;

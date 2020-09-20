@@ -2,19 +2,55 @@
 	
   session_start();
   
-  require 'includes/db.php';
-
-  if (isset($_SESSION['id_user'])) {
-	  //Cargar datos user
-	$_SESSION['id_user'];
-	
-	$id_user = $_SESSION['id_user'];
-  }else{
-	 header('Location: login.php');
-  }							
-			
-	
+  require 'includes/database.php';
+  require 'session.php';			
+  require 'chargeGroupUser.php';
+		
   $message  = '';
+
+  
+	if (!empty(isset($_POST['createClass']))) {
+    try{   
+      $consulta = "INSERT INTO subjects( CLASS_NAME, COD_CLASS, COLOR, ID_USER) VALUES (:class_name , :class_cod, :class_color , :id_user) ";
+      $sqlcreateCourses = $conn->prepare($consulta);
+      $sqlcreateCourses->bindParam(':class_name', $_POST['class_name'] ,PDO::PARAM_STR);
+      $sqlcreateCourses->bindParam(':class_cod', $_POST['class_cod'] ,PDO::PARAM_STR);      
+      $sqlcreateCourses->bindParam(':class_color', $_POST['class_color'] ,PDO::PARAM_STR);
+      $sqlcreateCourses->bindParam(':id_user', $id_user ,PDO::PARAM_INT);
+
+      $sqlcreateCourses->execute();
+      if($sqlcreateCourses->rowCount() > 0){ 
+        echo "<div class='content alert alert-primary' >Class created</div>";
+        /*
+        $sqlRelacioClassTeacherConsulta = "SELECT MAX(ID_CLASS) AS id_class FROM classes ";
+        $sqlRelacioClassTeacher = $conn->prepare($sqlRelacioClassTeacherConsulta);
+        $sqlRelacioClassTeacher->execute();
+        $results = $sqlRelacioClassTeacher->fetchAll();
+        
+        echo "<div class='content alert alert-primary' >La clase ha sido creada es idenificada</div>";
+        */
+        /*if($sqlRelacioClassTeacher->rowCount() > 0){
+          foreach($results as $row){
+              $id_class = $row['id_class'];
+             // echo "<div class='content alert alert-danger' > CLASE". $row['id_class'] ."   </div>";
+
+              $sqlcreateCoursesConsulta = "INSERT INTO rel_user_classes( ID_USER, ID_CLASS ) VALUES (:id_user , :id_class) ";
+              $sqlcreateCourses = $conn->prepare($sqlcreateCoursesConsulta);
+              $sqlcreateCourses->bindParam(':id_user', $id_user ,PDO::PARAM_INT);
+              $sqlcreateCourses->bindParam(':id_class', $id_class ,PDO::PARAM_INT);
+              $sqlcreateCourses->execute();
+             //echo "<div class='content alert alert-primary' >La clase ha sido relacionada con el profesor</div>";
+
+          }
+          
+      }*/
+      
+    }
+  }catch(PDOException $error) {
+    echo $sqlcreateCourses . "<br>" . $error->getMessage();
+  }
+    
+}
 ?>
 
 <!DOCTYPE html>
@@ -63,12 +99,18 @@
 			require 'topbar.php';
 		?>
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-		
-		  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">All Subjects</h1>
-          </div>
+         <!-- Begin Page Content -->
+         <div class="container-fluid">
+        <?php if(!empty($message)): ?>
+          <div class="message"> <?= $message ?> </div>
+        <?php endif;	?>
+		    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Subjects</h1>
+			      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal" data-target="#createSubjectModal">
+              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+				      Create a Subject
+            </a>
+        </div>
 		  
           <!-- Page Heading -->
           <!-- Content Row -->
@@ -76,35 +118,43 @@
 
             <!-- Subjects -->
 			<?php
-				if($_SESSION['group_user_id'] != 1){
-					$sqlSubjectsView = "SELECT * FROM subjects WHERE id_subject in ( SELECT id_subject FROM rel_user_subjects WHERE id_user = '$id_user' )";
-				}else{
-					$sqlSubjectsView = "SELECT * FROM subjects";
-				}
-				
-				$result = $connexion->query($sqlSubjectsView);
-				if($result->num_rows>0){
-					while($row = $result->fetch_assoc()) {
+
+
+if($_SESSION['group_user_id'] != 1){
+  $consulta = "SELECT * FROM subjects s
+               INNER JOIN classes c ON c.id_class = s.id_class where id_subject in ( select id_subject from rel_user_subjects where id_user = :id_user)
+               ORDER BY c.id_class ASC";
+}else{
+  $consulta1 = "SELECT * FROM subjects";
+}
+
+$sqlSubjectsView = $conn->prepare($consulta);
+$sqlSubjectsView->bindParam(':id_user', $id_user,PDO::PARAM_INT);
+
+$sqlSubjectsView->execute();
+$results = $sqlSubjectsView->fetchAll();
+
+if($sqlSubjectsView->rowCount() > 0){
+  foreach($results as $row){
 						echo '
-						<div class="col-xl-3 col-md-6 mb-4">
-						  <div class="card shadow h-100 py-2">
+            <div class="col-xl-3 col-md-6 mb-4">
+            <a href="subject-detail.php?ID_CLASS='.$row['ID_CLASS'] .'&' .'ID_SUBJECT='.$row['ID_SUBJECT'].'">
+						  <div class="card shadow h-100 py-2" style="border-left:.25rem solid '.$row['COLOR'].' !important">
 							<div class="card-body">
 							  <div class="row no-gutters align-items-center">
 								<div class="col mr-2">
-									<a href="subject-detail.php" onclick="'.$_SESSION['id_class']= $row['ID_CLASS'].'" >
 									  <div class="text-xs font-weight-bold text-primary text-uppercase mb-2">
 										<input type="hidden" name="class" id="class">
-										'.$row['NAME'].'
+										'.$row['NAME'] . ' - ' .$row['CLASS_NAME'].'
 									  </div>
-									</a>
 								</div>
-								<div class="col-auto">
-								  
+								<div class="col-auto">								  
 								  <i class="fas fa-chalkboard-teacher fa-2x text-gray-300"></i>
 								</div>
 							  </div>
 							</div>
-						  </div>
+              </div>
+              </a>
 						</div>';
 						
 					}
@@ -120,13 +170,10 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+      <!-- Page Footer -->
+		<?php 
+			require 'footer.php';
+		?>
       <!-- End of Footer -->
 
     </div>
@@ -154,6 +201,45 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="logout.php">Logut</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+   <!-- Create a Course Modal-->
+   <div class="modal fade" id="createSubjectModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create a class</h5>
+        </div>
+        <div class="modal-body">
+        <form method="POST" autocomplete="off">
+                 <dd><strong>Name</strong> </dd> 
+                 <dl>
+                     <input type="text" class="form-control form-control-user" id="class_name" name="class_name" placeholder="Primero A"   >
+                 </dl>
+                 
+                 <dd><strong>Code Class</strong> </dd> 
+                 <dl>
+                 <input type="text" class="form-control form-control-user" id="class_cod" name="class_cod" placeholder="1A"   >
+                 </dl>
+
+                 <dd><strong>Password</strong> </dd> 
+                 <dl>
+                   <input type="password" class="form-control form-control-user" id="class_password" name="class_password" value="12345678910" >
+                 </dl> 
+
+                 <dd><strong>Color</strong> </dd> 
+                 <dl> 
+                    <input type="color" class="form-control-color" id="class_color" name="class_color" />
+                 </dl>
+		    </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
+          <input type="submit" class="btn btn-primary" name="createSubject" value="Create">					
+			</form>
         </div>
       </div>
     </div>

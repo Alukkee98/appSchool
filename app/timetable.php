@@ -104,6 +104,10 @@
                       $results = $sqlTimetable->fetchAll();
                       $totalRow = $sqlTimetable->rowCount();
 
+                      print_r ($results);
+
+  
+ 
                       if  ($totalRow > 0) {
                         //Correr el array
                         foreach($results as $row){
