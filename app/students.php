@@ -80,13 +80,14 @@
         <?php if(!empty($message)): ?>
           <div class="message"> <?= $message ?> </div>
         <?php endif;	?>
-		    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+		
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Students</h1>
 			      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal" data-target="#createStudentModal">
               <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 				      Create a Student
             </a>
-        </div>
+		</div>
 		  
           <!-- Page Heading -->
           <!-- Content Row -->
@@ -185,12 +186,12 @@ if($sqlStudentsView->rowCount() > 0){
     </div>
   </div>
 
-   <!-- Create a Course Modal-->
+   <!-- Create a Student Modal-->
    <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create a class</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Create a student</h5>
         </div>
         <div class="modal-body">
         <form method="POST" autocomplete="off">

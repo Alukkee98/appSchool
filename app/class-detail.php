@@ -5,7 +5,8 @@
   
   require 'includes/database.php';
   require 'session.php';			
-	
+  require 'students-function.php';
+
 	
   $message  =  '' ;
   
@@ -63,6 +64,14 @@
         <?php if(!empty($message)): ?>
           <div class="message"> <?= $message ?> </div>
         <?php endif;	?>
+		
+		<div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Students</h1>
+			      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal" data-target="#createStudentModal">
+              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+				      Create a Student
+            </a>
+		</div>
        
           <!-- Page Heading -->
 
@@ -127,6 +136,14 @@
                       ';
                       $cont++;
                       }
+					         
+					  echo '
+					  <tr>
+                      <td align="center" >'.$cont.'</td>
+                        <td></td>
+                        <td align="center" >
+                        </td>
+                      </tr>';
                     }else{
                       echo 'No students in this class'
                       ;
@@ -176,6 +193,46 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="login.php">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   <!-- Create a Student Modal-->
+   <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create a student</h5>
+        </div>
+        <div class="modal-body">
+        <form method="POST" autocomplete="off">
+                 <dd><strong>Name</strong> </dd> 
+                 <dl>
+                     <input type="text" class="form-control form-control-user" id="student_name" name="student_name" placeholder="Introduce student name"   >
+                 </dl>
+                 
+                 <dd><strong>Surname</strong> </dd> 
+                 <dl>
+                 <input type="text" class="form-control form-control-user" id="student_surname" name="student_surname" placeholder="Introduce first Surname"   >
+                 </dl>
+
+                 <dd><strong></strong> </dd> 
+                 <dl>
+                   <input type="text" class="form-control form-control-user" id="student_surname2" name="student_surname2" placeholder="Introduce second Surname"	 >
+                 </dl> 
+
+                 <select  readonly="true" class="form-control form-control-sm" id="student_class" name="student_class">
+                     <?php 
+					 echo ' <option value="'.$_GET["ID_CLASS"].'">Select Class '. $_GET["ID_CLASS"] . ' </option>';
+                      ?>
+                  </select>
+
+		    </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
+          <input type="submit" class="btn btn-primary" name="createStudent" value="Create">					
+			</form>
         </div>
       </div>
     </div>
