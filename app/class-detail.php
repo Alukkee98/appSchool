@@ -121,14 +121,14 @@
                       foreach($results as $row){
                       echo '
                       <tr>
-                      <td align="center" >'.$cont.'</td>
+                      <td align="center" >'.$cont.'</td>  
                         <td>'.$row['SURNAME'].'  '.$row['SURNAME2'].', '.$row['NAME'].'</td>
                         <td align="center" >
                           <a href="#" class="btn-edit btn-circle btn-sm">
                               <i class="fas fa-edit"></i>
                           </a>
                           &nbsp; &nbsp; &nbsp;
-                          <a href="#" class="btn-danger btn-circle btn-sm">
+                          <a class="btn-danger btn-circle btn-sm" href="#" data-toggle="modal" data-target="#deleteModal">
                               <i class="fas fa-trash"></i>
                           </a>
                         </td>
@@ -233,6 +233,25 @@
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
           <input type="submit" class="btn btn-primary" name="createStudent" value="Create">					
 			</form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Delete Modal-->
+   <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"></h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Do you want to continous with this action.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.php">Delete</a>
         </div>
       </div>
     </div>
