@@ -124,12 +124,15 @@ if($_SESSION['group_user_id'] != 1){
   $consulta = "SELECT * FROM subjects s
                INNER JOIN classes c ON c.id_class = s.id_class where id_subject in ( select id_subject from rel_user_subjects where id_user = :id_user)
                ORDER BY c.id_class ASC";
+  $sqlSubjectsView->bindParam(':id_user', $id_user,PDO::PARAM_INT);
+
 }else{
-  $consulta1 = "SELECT * FROM subjects";
+  $consulta = "SELECT * FROM subjects s
+              INNER JOIN classes c ON c.id_class = s.id_class
+              ORDER BY c.id_class ASC";
 }
 
 $sqlSubjectsView = $conn->prepare($consulta);
-$sqlSubjectsView->bindParam(':id_user', $id_user,PDO::PARAM_INT);
 
 $sqlSubjectsView->execute();
 $results = $sqlSubjectsView->fetchAll();

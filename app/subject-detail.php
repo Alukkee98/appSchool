@@ -101,15 +101,13 @@
                     <?php
                     $consulta = "SELECT * FROM students s
                     LEFT OUTER JOIN test_notes tn ON tn.ID_STUDENT  = s.ID 
-                    WHERE id_class in ( 
-                                                                SELECT id_class FROM subjects 
-                                                                where id_subject in (
-                                                                            select id_subject from rel_user_subjects where id_user = :id_user
-                                                                                    ) 
-                                                                ) ";
+                    WHERE s.id_class = :id_class AND  tn.ID_SUBJECT = :id_subject
+				          	OR    s.id_class = :id_class AND  tn.ID_SUBJECT IS NULL; ";
                     
                     $sqlStudentsTable = $conn->prepare($consulta);
-                    $sqlStudentsTable->bindParam(':id_user', $id_user,PDO::PARAM_INT);
+                    $sqlStudentsTable->bindParam(':id_class', $_GET["ID_CLASS"],PDO::PARAM_INT);
+                    $sqlStudentsTable->bindParam(':id_subject', $_GET["ID_SUBJECT"],PDO::PARAM_INT);
+
                     
                     $sqlStudentsTable->execute();
                     $results = $sqlStudentsTable->fetchAll();
@@ -121,7 +119,9 @@
                       <tr>
                         <td>'.$cont.'</td>
                         <td>'.$row['SURNAME'].'  '.$row['SURNAME2'].', '.$row['NAME'].'</td>
-                        <td>'.$row['NOTE'].'</td>
+                        <td>
+                        '.$row['NOTE'].'
+                        </td>
                       </tr>
                       ';
                       $cont++;
