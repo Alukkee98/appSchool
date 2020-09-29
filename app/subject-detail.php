@@ -71,17 +71,20 @@
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">
               <?php
-                    $consulta = "SELECT * FROM classes WHERE ID_CLASS = :id_class";
+                    $consulta = "SELECT * FROM subjects s 
+                    INNER JOIN classes c on s.ID_CLASS  = c.ID_CLASS 
+                    WHERE ID_SUBJECT = :id_subject";
                     
                     $sqlClassesName = $conn->prepare($consulta);
-                    $sqlClassesName->bindParam(':id_class', $_GET["ID_CLASS"],PDO::PARAM_INT);
+                    $sqlClassesName->bindParam(':id_subject', $_GET["ID_SUBJECT"],PDO::PARAM_INT);
+
                     
                     $sqlClassesName->execute();
 
                     $results = $sqlClassesName->fetchAll();
 
                     foreach($results as $row){
-                      echo ''. $row['CLASS_NAME'];
+                      echo  $row['NAME'] . " - ". $row['CLASS_NAME'];
                     }                  
               ?>
              </h6>
@@ -93,16 +96,30 @@
                     <tr>
                       <th>Id</th>
                       <th>Name</th>
-                      <th>Note</th>
+                      <th>
+                        <input type="text" id="class_name" name="class_name" placeholder="Note"   >
+                      </th>
+                      <?php
+                       echo '
+                       <th align="center">
+                       <span style="display:none;">100000</span>
+                       <a href="#"  class="btn-green btn-circle btn-sm" data-toggle="modal" data-target="#createStudentModal">
+                       <i class="fas fa-plus-circle"></i>
+                       </a>
+                       </th>';
+                      ?>
+                     
                     </tr>
                   </thead>
                   
                   <tbody>
                     <?php
-                    $consulta = "SELECT * FROM students s
-                    LEFT OUTER JOIN test_notes tn ON tn.ID_STUDENT  = s.ID 
-                    WHERE s.id_class = :id_class AND  tn.ID_SUBJECT = :id_subject
-				          	OR    s.id_class = :id_class AND  tn.ID_SUBJECT IS NULL; ";
+                    $consulta = " SELECT * FROM students s
+                    LEFT OUTER JOIN notes tn ON tn.ID_STUDENT  = s.ID 
+                    WHERE
+                     tn.id_subject = :id_subject or tn.id_subject IS NULL
+                    and   s.ID_CLASS = :id_class
+                     order by s.ID_CLASS  asc;";
                     
                     $sqlStudentsTable = $conn->prepare($consulta);
                     $sqlStudentsTable->bindParam(':id_class', $_GET["ID_CLASS"],PDO::PARAM_INT);
@@ -120,7 +137,7 @@
                         <td>'.$cont.'</td>
                         <td>'.$row['SURNAME'].'  '.$row['SURNAME2'].', '.$row['NAME'].'</td>
                         <td>
-                        '.$row['NOTE'].'
+                          <input type="text" id="class_name" name="class_name" placeholder="'.$row['NOTE'].'"   >
                         </td>
                       </tr>
                       ';

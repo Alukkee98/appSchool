@@ -18,7 +18,7 @@
 
 	if($sqlCoursesView->rowCount() > 0){
 	  foreach($results as $row){
-	  echo '<option value="'.$row[ID_CLASS].'">'.$row['CLASS_COD'].' - '.$row['CLASS_NAME'].'</option>
+	  echo '<option value="'.$row[ID_CLASS].'">'.$row['COD_CLASS'].' - '.$row['CLASS_NAME'].'</option>
 			';
 	}
 	}

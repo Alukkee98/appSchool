@@ -17,8 +17,9 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="index.php">
-		<i class="fas fa-fw fa-home"></i>
-		<span>Dashboard</span></a>
+        <i class="fas fa-fw fa-home"></i>
+        <span>Dashboard</span>
+        </a>
       </li>
 
       <!-- Divider -->
@@ -29,22 +30,27 @@
         Interface
       </div>
 
-      <!-- Nav Item - Classes Collapse Menu 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="classes.php" data-toggle="collapse" aria-expanded="true" aria-controls="collapseOne">
-          <i class="fas fa-graduation-cap"></i>
-          <span>Classes</span>
-        </a>
-      </li>-->
+      <?php
+      $host = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
-      <!-- Nav Item - Subjects Collapse Menu
-	   <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-		  <i class="fas fa-book-open"></i>
-          <span>Subjects</span>
-        </a>
-      </li>-->
-	  
+     // echo "<div class='content alert alert-primary' >".$host."</div>";
+
+      if(strpos($host, "class") == false){
+        echo "<li class='nav-item'>
+                <a class='nav-link collapsed' href='classes.php' >
+                  <i class='fas fa-graduation-cap'></i>
+                  <span>Classes</span>
+                </a>
+              </li>";  
+      }else{
+      echo "<li class='nav-item'>
+              <a class='nav-link collapsed' href='subjects.php' >
+                <i class='fas fa-book-open'></i>
+                <span>Subjects</span>
+              </a>
+          </li>";
+      }
+      ?>
 
       <!-- Nav Item - Students Collapse Menu 
 		<li class="nav-item">

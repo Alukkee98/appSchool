@@ -64,16 +64,8 @@
         <?php if(!empty($message)): ?>
           <div class="message"> <?= $message ?> </div>
         <?php endif;	?>
-		
-		<div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Students</h1>
-			      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" href="#" data-toggle="modal" data-target="#createStudentModal">
-              <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-				      Create a Student
-            </a>
-		</div>
-       
-          <!-- Page Heading -->
+	
+        <!-- Page Heading -->
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
@@ -121,7 +113,7 @@
                       foreach($results as $row){
                       echo '
                       <tr>
-                      <td align="center" >'.$cont.'</td>  
+                        <td align="center" >'.$cont.'</td>  
                         <td>'.$row['SURNAME'].'  '.$row['SURNAME2'].', '.$row['NAME'].'</td>
                         <td align="center" >
                           <a href="#" class="btn-edit btn-circle btn-sm">
@@ -132,21 +124,43 @@
                               <i class="fas fa-trash"></i>
                           </a>
                         </td>
-                      </tr>
-                      ';
+                      </tr>';
                       $cont++;
                       }
-					         
-					  echo '
-					  <tr>
-                      <td align="center" >'.$cont.'</td>
-                        <td></td>
-                        <td align="center" >
-                        </td>
-                      </tr>';
+
+                      echo '
+                      <tr>
+                      <td align="center" > 
+                      <span style="display:none;">100000</span>
+                      <a href="#"  class="btn-green btn-circle btn-sm" data-toggle="modal" data-target="#createStudentModal">
+                      <i class="fas fa-plus-circle"></i>
+                      </a>
+                      </td>  
+                      <td>
+                      <span style="display:none;">ZZ</span>
+                      Add a new student</td>
+                      <td align="center" >
+                      </td>
+                    </tr>';
+
+                  
                     }else{
-                      echo 'No students in this class'
-                      ;
+                      echo 'No students in this class';
+                      echo '
+                      <tr>
+                      <td align="center" > 
+                      <span style="display:none;">100000</span>
+                      <a href="#"  class="btn-green btn-circle btn-sm" data-toggle="modal" data-target="#createStudentModal">
+                      <i class="fas fa-plus-circle"></i>
+                      </a>
+                      </td>  
+                      <td>
+                      <span style="display:none;">ZZ</span>
+                      Add a new student</td>
+                      <td align="center" >
+                      </td>
+                    </tr>';
+                      
                     }
                   ?>
                   </tbody>
@@ -156,7 +170,7 @@
           </div>
 
         </div>
-        <!-- /.container-fluid -->
+        <!-- /.container-fluid -->	
 
       </div>
       <!-- End of Main Content -->
@@ -178,25 +192,6 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
   
    <!-- Create a Student Modal-->
    <div class="modal fade" id="createStudentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -222,9 +217,9 @@
                    <input type="text" class="form-control form-control-user" id="student_surname2" name="student_surname2" placeholder="Introduce second Surname"	 >
                  </dl> 
 
-                 <select  readonly="true" class="form-control form-control-sm" id="student_class" name="student_class">
+                 <select  readonly="true"  class="form-control form-control-sm form-control-display-none" id="student_class" name="student_class">
                      <?php 
-					 echo ' <option value="'.$_GET["ID_CLASS"].'">Select Class '. $_GET["ID_CLASS"] . ' </option>';
+					            echo ' <option value="'.$_GET["ID_CLASS"].'">Select Class '. $_GET["ID_CLASS"] . ' </option>';
                       ?>
                   </select>
 
@@ -248,7 +243,7 @@
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Do you want to continous with this action.</div>
+        <div class="modal-body">Do you want to continue with this action.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="login.php">Delete</a>

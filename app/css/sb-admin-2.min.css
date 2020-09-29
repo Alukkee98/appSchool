@@ -1813,6 +1813,10 @@ border:1px solid #d1d3e2;
 border-radius:.35rem; 
 transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out
  } 
+
+ .form-control-display-none{ 
+    display:none;
+     } 
  
  @media (prefers-reduced-motion:reduce){ 
 .form-control{ 
@@ -2457,6 +2461,43 @@ border-color:#278c9b
 box-shadow:0 0 0 .2rem rgba(84,196,212,.5)
  } 
  
+ 
+ .btn-green{ 
+    color:#fff; 
+    background-color:#07c95f; 
+    border-color:#00FF00
+     } 
+     
+     .btn-green:hover{ 
+    color:#fff; 
+    background-color:#0be66d; 
+    border-color:#0be66d;
+    text-decoration: none;
+
+
+     } 
+     
+     .btn-green.focus,.btn-green:focus{ 
+    box-shadow:0 0 0 .2rem rgba(84,196,212,.5)
+     } 
+     
+     .btn-green.disabled,.btn-green:disabled{ 
+    color:#fff; 
+    background-color:#0be66d; 
+    border-color:#0be66d
+     } 
+     
+     .btn-green:not(:disabled):not(.disabled).active,.btn-green:not(:disabled):not(.disabled):active,.show>.btn-green.dropdown-toggle{ 
+    color:#fff; 
+    background-color:#0be66d; 
+    border-color:#0be66d
+     } 
+     
+     .btn-green:not(:disabled):not(.disabled).active:focus,.btn-green:not(:disabled):not(.disabled):active:focus,.show>.btn-green.dropdown-toggle:focus{ 
+    box-shadow:0 0 0 .2rem rgba(84,196,212,.5)
+     } 
+ 
+     
  .btn-warning{ 
 color:#fff; 
 background-color:#f6c23e; 

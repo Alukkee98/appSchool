@@ -9,45 +9,45 @@
   $message  = '';
 
   
-	if (!empty(isset($_POST['createClass']))) {
+	if (!empty(isset($_POST['createSubject']))) {
     try{   
-      $consulta = "INSERT INTO subjects( CLASS_NAME, COD_CLASS, COLOR, ID_USER) VALUES (:class_name , :class_cod, :class_color , :id_user) ";
-      $sqlcreateCourses = $conn->prepare($consulta);
-      $sqlcreateCourses->bindParam(':class_name', $_POST['class_name'] ,PDO::PARAM_STR);
-      $sqlcreateCourses->bindParam(':class_cod', $_POST['class_cod'] ,PDO::PARAM_STR);      
-      $sqlcreateCourses->bindParam(':class_color', $_POST['class_color'] ,PDO::PARAM_STR);
-      $sqlcreateCourses->bindParam(':id_user', $id_user ,PDO::PARAM_INT);
+      $consulta = "INSERT INTO subjects (NAME, ID_CLASS) VALUES (:subject_name , :id_class)  ";
+      $sqlcreateSubject = $conn->prepare($consulta);
+    
+      $sqlcreateSubject->bindParam(':subject_name', $_POST['subject_name'] ,PDO::PARAM_STR);
+      $sqlcreateSubject->bindParam(':id_class', $_POST['subject_class']  ,PDO::PARAM_INT);
 
-      $sqlcreateCourses->execute();
-      if($sqlcreateCourses->rowCount() > 0){ 
-        echo "<div class='content alert alert-primary' >Class created</div>";
-        /*
-        $sqlRelacioClassTeacherConsulta = "SELECT MAX(ID_CLASS) AS id_class FROM classes ";
-        $sqlRelacioClassTeacher = $conn->prepare($sqlRelacioClassTeacherConsulta);
-        $sqlRelacioClassTeacher->execute();
-        $results = $sqlRelacioClassTeacher->fetchAll();
+
+      $sqlcreateSubject->execute();
+      if($sqlcreateSubject->rowCount() > 0){ 
+        echo "<div class='content alert alert-primary' >Subject created</div>";
+      
+        $sqlRelacioSubjectTeacherConsulta = "SELECT MAX(ID_SUBJECT) AS id_subject FROM subjects ";
+        $sqlRelacioSubjectTeacher = $conn->prepare($sqlRelacioSubjectTeacherConsulta);
+        $sqlRelacioSubjectTeacher->execute();
+        $results = $sqlRelacioSubjectTeacher->fetchAll();
         
-        echo "<div class='content alert alert-primary' >La clase ha sido creada es idenificada</div>";
-        */
-        /*if($sqlRelacioClassTeacher->rowCount() > 0){
+        //echo "<div class='content alert alert-primary' >La subject ha sido creada es idenificada</div>";
+        
+        if($sqlRelacioSubjectTeacher->rowCount() > 0){
           foreach($results as $row){
-              $id_class = $row['id_class'];
+              $id_subject = $row['id_subject'];
              // echo "<div class='content alert alert-danger' > CLASE". $row['id_class'] ."   </div>";
 
-              $sqlcreateCoursesConsulta = "INSERT INTO rel_user_classes( ID_USER, ID_CLASS ) VALUES (:id_user , :id_class) ";
+              $sqlcreateCoursesConsulta = "INSERT INTO rel_user_subjects( ID_USER, ID_SUBJECT ) VALUES (:id_user , :id_subject) ";
               $sqlcreateCourses = $conn->prepare($sqlcreateCoursesConsulta);
               $sqlcreateCourses->bindParam(':id_user', $id_user ,PDO::PARAM_INT);
-              $sqlcreateCourses->bindParam(':id_class', $id_class ,PDO::PARAM_INT);
+              $sqlcreateCourses->bindParam(':id_subject', $id_subject ,PDO::PARAM_INT);
               $sqlcreateCourses->execute();
-             //echo "<div class='content alert alert-primary' >La clase ha sido relacionada con el profesor</div>";
+             //echo "<div class='content alert alert-primary' >La subject ha sido relacionada con el profesor</div>";
 
           }
           
-      }*/
+      }
       
     }
   }catch(PDOException $error) {
-    echo $sqlcreateCourses . "<br>" . $error->getMessage();
+    echo $sqlcreateSubject . "<br>" . $error->getMessage();
   }
     
 }
@@ -124,15 +124,19 @@ if($_SESSION['group_user_id'] != 1){
   $consulta = "SELECT * FROM subjects s
                INNER JOIN classes c ON c.id_class = s.id_class where id_subject in ( select id_subject from rel_user_subjects where id_user = :id_user)
                ORDER BY c.id_class ASC";
+  
+  $sqlSubjectsView = $conn->prepare($consulta);
   $sqlSubjectsView->bindParam(':id_user', $id_user,PDO::PARAM_INT);
 
 }else{
   $consulta = "SELECT * FROM subjects s
               INNER JOIN classes c ON c.id_class = s.id_class
               ORDER BY c.id_class ASC";
+  
+  $sqlSubjectsView = $conn->prepare($consulta);
+
 }
 
-$sqlSubjectsView = $conn->prepare($consulta);
 
 $sqlSubjectsView->execute();
 $results = $sqlSubjectsView->fetchAll();
@@ -215,29 +219,28 @@ if($sqlSubjectsView->rowCount() > 0){
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create a class</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Create a subject</h5>
         </div>
         <div class="modal-body">
         <form method="POST" autocomplete="off">
                  <dd><strong>Name</strong> </dd> 
                  <dl>
-                     <input type="text" class="form-control form-control-user" id="class_name" name="class_name" placeholder="Primero A"   >
+                     <input type="text" class="form-control form-control-user" id="subject_name" name="subject_name" placeholder="Introduce the subject name"   >
                  </dl>
-                 
-                 <dd><strong>Code Class</strong> </dd> 
-                 <dl>
-                 <input type="text" class="form-control form-control-user" id="class_cod" name="class_cod" placeholder="1A"   >
-                 </dl>
-
-                 <dd><strong>Password</strong> </dd> 
+                
+                <!-- <dd><strong>Password</strong> </dd> 
                  <dl>
                    <input type="password" class="form-control form-control-user" id="class_password" name="class_password" value="12345678910" >
-                 </dl> 
+                 </dl> -->
 
-                 <dd><strong>Color</strong> </dd> 
-                 <dl> 
-                    <input type="color" class="form-control-color" id="class_color" name="class_color" />
-                 </dl>
+                 <dd><strong>Class</strong> </dd> 
+                 <select class="form-control form-control-sm" id="subject_class" name="subject_class">
+                      <option value="">Select Class</option>
+                      <?php 
+                      	require 'chargeClassSelect.php';
+                      ?>
+                  </select>
+
 		    </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
