@@ -100,6 +100,7 @@
                         <input type="text" id="class_name" name="class_name" placeholder="Note"   >
                       </th>
                       <?php
+					  
                        echo '
                        <th align="center">
                        <span style="display:none;">100000</span>
@@ -114,23 +115,29 @@
                   
                   <tbody>
                     <?php
+					$note_num = '1';
+					
                     $consulta = " SELECT * FROM students s
                     LEFT OUTER JOIN notes tn ON tn.ID_STUDENT  = s.ID 
                     WHERE
-                     tn.id_subject = :id_subject or tn.id_subject IS NULL
+                    tn.id_subject = :id_subject
+					and tn.NOTE_NUM = $note_num					
+					or tn.id_subject IS NULL
                     and   s.ID_CLASS = :id_class
-                     order by s.ID_CLASS  asc;";
+                    order by s.ID_CLASS, tn.NOTE_NUM  asc;";
                     
-                    $sqlStudentsTable = $conn->prepare($consulta);
-                    $sqlStudentsTable->bindParam(':id_class', $_GET["ID_CLASS"],PDO::PARAM_INT);
-                    $sqlStudentsTable->bindParam(':id_subject', $_GET["ID_SUBJECT"],PDO::PARAM_INT);
+                    $sqlStudentsNoteTable = $conn->prepare($consulta);
+                    $sqlStudentsNoteTable->bindParam(':id_class', $_GET["ID_CLASS"],PDO::PARAM_INT);
+                    $sqlStudentsNoteTable->bindParam(':id_subject', $_GET["ID_SUBJECT"],PDO::PARAM_INT);
 
                     
-                    $sqlStudentsTable->execute();
-                    $results = $sqlStudentsTable->fetchAll();
+                    $sqlStudentsNoteTable->execute();
+                    $results = $sqlStudentsNoteTable->fetchAll();
                     
+					print_r ($results);
+					
                     $cont = 1;
-                    if($sqlStudentsTable->rowCount() > 0){
+                    if($sqlStudentsNoteTable->rowCount() > 0){
                       foreach($results as $row){
                       echo '
                       <tr>
