@@ -18,11 +18,35 @@
 
       $sqlcreateStudent->execute();
       if($sqlcreateStudent->rowCount() > 0){ 
+
         echo "<div class='content alert alert-primary' >Student created</div>";
+
     }
   }catch(PDOException $error) {
-    echo $sqlcreateCourses . "<br>" . $error->getMessage();
+    echo $sqlcreateStudent . "<br>" . $error->getMessage();
   }
 }
+
+
+if (!empty(isset($_POST['createStudent']))) {
+  try{   
+    $consulta = "DELETE students (:student_name , :student_surname, :student_surname2, :student_class , 1) ";
+    $sqlDeleteStudent = $conn->prepare($consulta);
+    $sqlDeleteStudent->bindParam(':student_class', $_POST['student_class'] ,PDO::PARAM_INT);
+
+
+    $sqlDeleteStudent->execute();
+    if($sqlDeleteStudent->rowCount() > 0){ 
+
+      echo "<div class='content alert alert-warning' >Student deleted</div>";
+
+  }
+}catch(PDOException $error) {
+  echo $sqlDeleteStudent . "<br>" . $error->getMessage();
+}
+}
+
+
+
 
 ?>

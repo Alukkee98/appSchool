@@ -247,6 +247,8 @@
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="login.php">Delete</a>
+          <input type="submit" class="btn btn-primary" name="deleteStudent" value="Delete">					
+
         </div>
       </div>
     </div>
