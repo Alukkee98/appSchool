@@ -17,10 +17,11 @@
     $results = $sql->fetchAll();
 
     //Array
-   /* while( $results = $sql->fetch(PDO:: FETCH_ASSOC) ){
+    /*
+    while( $results = $sql->fetch(PDO:: FETCH_ASSOC) ){
                     $message = print_r($results);
       }
-    */  
+     */
     
     //Numero de registros de la query
     $totalRow = $sql->rowCount();
@@ -98,7 +99,7 @@
                   </div>
                   <form class="user" method="POST" action="login.php">
                     <div class="form-group">
-                      <input type="text" name="username" class="form-control form-control-user" id="username" aria-describedby="emailHelp" placeholder="Enter username...">
+                      <input type="text" name="username" class="form-control form-control-user loginbotones" id="username" aria-describedby="emailHelp" placeholder="Enter username...">
                     </div>
                     <div class="form-group">
                       <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Password">

@@ -230,7 +230,7 @@
 			</form>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 
    <!-- Delete Modal-->

@@ -109,8 +109,8 @@
                        echo '
                        <th align="center">
                        <span style="display:none;">100000</span>
-                       <a href="#"  class="btn-green btn-circle btn-sm" data-toggle="modal" data-target="#createStudentModal">
-                       <i class="fas fa-plus-circle"></i>
+                       <a href="#"  class="btn-green btn-circle btn-sm" data-toggle="modal" data-target="#createNotaModal">
+                       <i class="fas fa-plus-circle"></i> 
                        </a>
                        </th>';
                       ?>
@@ -139,7 +139,7 @@
                     $sqlStudentsNoteTable->execute();
                     $results = $sqlStudentsNoteTable->fetchAll();
                     
-					print_r ($results);
+//					print_r ($results);
 					
                     $cont = 1;
                     if($sqlStudentsNoteTable->rowCount() > 0){
@@ -194,6 +194,68 @@
   </a>
 
 
+
+ <!-- Create a Student Modal-->
+ <div class="modal fade" id="createNotaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Create a note</h5>
+        </div>
+        <div class="modal-body">
+        <form method="POST" autocomplete="off">
+                  	<!-- CLASSES -->
+				<div class="col-xl-3 col-md-6 mb-4">
+				<a class="text-white" href="classes.php">
+				  <div class="card shadow bg-info text-white h-100 py-2">
+					<div class="card-body">
+					  <div class="row no-gutters align-items-center">
+						<div class="col mr-2">
+							  <div class="text-xs font-weight-bold text-uppercase mb-2">
+								CLASSES
+							  </div>
+						</div>
+						<div class="col-auto">
+							<i class="fas fa-graduation-cap fa-2x text-gray-300"></i>
+						</div>
+					   </div>
+					</div>
+				 </div>
+				</a>
+				</div>
+				
+
+                   <!-- SUBJECTS -->
+                   <div class="col-xl-3 col-md-6 mb-4">
+                  <a class="text-white" href="subjects.php">
+                    <div class="card shadow bg-warning text-white h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                          <div class="text-xs font-weight-bold text-uppercase mb-2">
+                          SUBJECTS
+                          </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-book-open fa-2x text-gray-300"></i>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  </a>
+                  </div>
+               
+
+		    </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>		  
+          <input type="submit" class="btn btn-primary" name="createNote" value="Create">					
+			</form>
+        </div>
+      </div>
+    </div> 
+  </div>
+  
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -204,9 +266,6 @@
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
 
-  <!-- Page level plugins -->
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
